@@ -2,9 +2,9 @@ const { t } = require('../i18n');
 const BaseCommand = require('./base');
 const { EmbedBuilder } = require('discord.js');
 
-class StatsCommand extends BaseCommand {
+class UserCommand extends BaseCommand {
     constructor() {
-        super('stats', 'Shows your personal statistics');
+        super('user', 'Shows your personal statistics');
     }
 
     async execute(message, args, db) {
@@ -36,4 +36,4 @@ class StatsCommand extends BaseCommand {
     }
 }
 
-module.exports = StatsCommand; 
+module.exports = UserCommand; 
