@@ -25,11 +25,19 @@ module.exports = {
             return;
         }
 
-        // Get current count from guild settings
-        const guildSettings = db.prepare('SELECT current_count FROM guild_settings WHERE guild_id = ?')
+        // Get current count and last counter from guild settings
+        const guildSettings = db.prepare('SELECT current_count, last_counter FROM guild_settings WHERE guild_id = ?')
             .get(message.guild.id);
         
         if (!guildSettings) {
+            return;
+        }
+
+        // Check if user is trying to count twice in a row (unless they're the server owner)
+        const isDoubleCount = guildSettings.last_counter === message.author.id;
+        if (isDoubleCount && message.author.id !== message.guild.ownerId) {
+            await message.reply(t('cannot_count_twice', user.language));
+            await message.react('❌');
             return;
         }
 
@@ -49,6 +57,11 @@ module.exports = {
 
             // Add checkmark reaction
             await message.react('✅');
+            
+            // Add suspicious emoji if server owner double counted
+            if (isDoubleCount && message.author.id === message.guild.ownerId) {
+                await message.react('👀');
+            }
         } else {
             // Handle incorrect count
             if (user.saves > 0) {
@@ -68,10 +81,10 @@ module.exports = {
                     current: number
                 }));
                 
-                // Reset count and increment failed count
+                // Reset count and increment failed count, but keep last_counter
                 db.prepare(`
                     UPDATE guild_settings 
-                    SET current_count = 0, failed_count = failed_count + 1, last_counter = NULL, last_failed_counter = ? 
+                    SET current_count = 0, failed_count = failed_count + 1, last_failed_counter = ? 
                     WHERE guild_id = ?
                 `).run(message.author.id, message.guild.id);
 
