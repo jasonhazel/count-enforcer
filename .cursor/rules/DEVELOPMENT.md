@@ -1,0 +1,86 @@
+# Development Guidelines
+
+This document outlines the core development rules and standards for the project.
+
+## Git Workflow
+
+### Branching Strategy
+- Always create a new branch for code changes
+- Branch names should follow the pattern:
+  - `feature/` for new features
+  - `bugfix/` for bug fixes
+  - `hotfix/` for urgent fixes
+- Follow with a descriptive name
+
+### Commit Guidelines
+- Write clear and descriptive commit messages
+- Follow conventional commits format
+- Keep commits atomic and focused on a single change
+- Ensure all tests pass before committing
+- Get code review before merging
+
+## Docker Development
+
+### Best Practices
+- Test changes in the Docker environment before committing
+- Update Dockerfile and docker-compose.yml when adding new dependencies
+- Configure .dockerignore to exclude unnecessary files
+- Keep Docker images optimized and minimal
+- Document Docker configuration changes in commit messages
+
+## Code Quality
+
+### Standards
+- Follow existing code style and formatting
+- Write tests for new features and bug fixes
+- Update documentation when changing functionality
+- Keep functions small and focused
+- Use meaningful variable and function names
+- Maintain minimum test coverage of 80% for all new code
+
+## Testing Requirements
+
+### Coverage and Standards
+- Maintain minimum test coverage of 80% across the codebase
+- Write unit tests for all new functions and methods
+- Include integration tests for API endpoints and database operations
+- Test both success and error cases
+- Mock external dependencies in unit tests
+- Run full test suite before committing changes
+- Document test coverage reports in pull requests
+
+## Security Guidelines
+
+### Best Practices
+- Never commit sensitive data or credentials
+- Use environment variables for configuration
+- Keep dependencies updated and secure
+- Follow security best practices for Docker configurations
+
+## Vue.js Development
+
+### Standards
+- Use Vue.js in Options API mode (not Composition API)
+- Follow Vue.js style guide for component naming and structure
+- Use PascalCase for component names
+- Use kebab-case for custom event names
+- Keep components focused and single-responsibility
+
+### Vuetify Integration
+- Use Vuetify components for UI elements when available
+- Follow Vuetify's design system and spacing guidelines
+- Implement responsive design using Vuetify's grid system
+- Use Vuetify's built-in theming system for consistent styling
+- Document component props, events, and slots
+
+## JavaScript Standards
+
+### Coding Standards
+- Use ES6+ features appropriately
+- Follow consistent naming conventions (camelCase for variables/functions)
+- Use async/await for asynchronous operations
+- Implement proper error handling
+- Use destructuring and spread operators where appropriate
+- Keep functions pure when possible
+- Use TypeScript for type safety where applicable
+- Document complex functions with JSDoc comments 
