@@ -41,8 +41,12 @@ module.exports = {
             db.prepare('UPDATE guild_settings SET current_count = ? WHERE guild_id = ?')
                 .run(number, message.guild.id);
             
+            // Get latest guild settings
+            const updatedSettings = db.prepare('SELECT * FROM guild_settings WHERE guild_id = ?')
+                .get(message.guild.id);
+            
             // Update highest count if needed
-            if (number > guildSettings.highest_count) {
+            if (number > updatedSettings.highest_count) {
                 db.prepare('UPDATE guild_settings SET highest_count = ? WHERE guild_id = ?')
                     .run(number, message.guild.id);
             }

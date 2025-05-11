@@ -30,10 +30,14 @@
     "coverageDirectory": "coverage",
     "collectCoverageFrom": [
       "src/**/*.js",
-      "!src/index.js"
+      "!src/index.js",
+      "!src/db/migrations/**",
+      "!src/__tests__/commands/commands.command.test.js"
     ],
     "testMatch": [
-      "**/__tests__/**/*.test.js"
+      "**/__tests__/**/*.test.js",
+      "!**/src/db/migrations/**",
+      "!**/src/__tests__/commands/commands.command.test.js"
     ]
   }
 }

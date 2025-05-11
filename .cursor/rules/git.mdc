@@ -1,0 +1,6 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+- always create a new branch for code changes and ask me for confirmation before merging.
