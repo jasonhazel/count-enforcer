@@ -25,46 +25,45 @@ module.exports = {
             return;
         }
 
-        // Get current count from guild settings
-        const guildSettings = db.prepare('SELECT current_count FROM guild_settings WHERE guild_id = ?')
+        // Get current count and last counter from guild settings
+        const guildSettings = db.prepare('SELECT current_count, last_counter FROM guild_settings WHERE guild_id = ?')
             .get(message.guild.id);
         
         if (!guildSettings) {
             return;
         }
 
+        // Check if user is trying to count twice in a row (unless they're the server owner)
+        const isDoubleCount = guildSettings.last_counter === message.author.id;
+        if (isDoubleCount && message.author.id !== message.guild.ownerId) {
+            await message.reply(t('cannot_count_twice', user.language));
+            await message.react('❌');
+            return;
+        }
+
         const expectedCount = guildSettings.current_count + 1;
 
-        // Check if the number is correct
         if (number === expectedCount) {
-            // Update the current count
-            db.prepare('UPDATE guild_settings SET current_count = ? WHERE guild_id = ?')
-                .run(number, message.guild.id);
-            
-            // Get latest guild settings
-            const updatedSettings = db.prepare('SELECT * FROM guild_settings WHERE guild_id = ?')
-                .get(message.guild.id);
-            
-            // Update highest count if needed
-            if (number > updatedSettings.highest_count) {
-                db.prepare('UPDATE guild_settings SET highest_count = ? WHERE guild_id = ?')
-                    .run(number, message.guild.id);
-            }
-            
+            // Correct count
+            db.prepare(`
+                UPDATE guild_settings 
+                SET current_count = ?, highest_count = MAX(highest_count, ?), last_counter = ? 
+                WHERE guild_id = ?
+            `).run(expectedCount, expectedCount, message.author.id, message.guild.id);
+
+            // Increment user's success count
+            db.prepare('UPDATE users SET success_count = success_count + 1 WHERE user_id = ?')
+                .run(message.author.id);
+
             // Add checkmark reaction
             await message.react('✅');
-        } else {
-            // If count is less than 10, just warn the user
-            if (guildSettings.current_count < 10) {
-                await message.reply(t('incorrect_count_warning', user.language, {
-                    expected: expectedCount,
-                    current: number
-                }));
-                await message.react('⚠️');
-                return;
+            
+            // Add suspicious emoji if server owner double counted
+            if (isDoubleCount && message.author.id === message.guild.ownerId) {
+                await message.react('👀');
             }
-
-            // Handle incorrect count for counts >= 10
+        } else {
+            // Handle incorrect count
             if (user.saves > 0) {
                 // User has saves
                 await message.reply(t('incorrect_count_with_save', user.language, {
@@ -72,8 +71,8 @@ module.exports = {
                     current: number
                 }));
                 
-                // Decrement saves
-                db.prepare('UPDATE users SET saves = saves - 1 WHERE user_id = ?')
+                // Decrement saves and increment fail count
+                db.prepare('UPDATE users SET saves = saves - 1, fail_count = fail_count + 1 WHERE user_id = ?')
                     .run(message.author.id);
             } else {
                 // No saves left
@@ -82,12 +81,16 @@ module.exports = {
                     current: number
                 }));
                 
-                // Reset count and increment failed count
+                // Reset count and increment failed count, but keep last_counter
                 db.prepare(`
                     UPDATE guild_settings 
-                    SET current_count = 0, failed_count = failed_count + 1 
+                    SET current_count = 0, failed_count = failed_count + 1, last_failed_counter = ? 
                     WHERE guild_id = ?
-                `).run(message.guild.id);
+                `).run(message.author.id, message.guild.id);
+
+                // Increment user's fail count
+                db.prepare('UPDATE users SET fail_count = fail_count + 1 WHERE user_id = ?')
+                    .run(message.author.id);
             }
             
             // Add X reaction

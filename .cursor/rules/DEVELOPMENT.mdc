@@ -1,3 +1,8 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
 # Development Guidelines
 
 This document outlines the core development rules and standards for the project.

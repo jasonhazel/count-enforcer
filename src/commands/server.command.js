@@ -11,12 +11,32 @@ class ServerCommand extends BaseCommand {
         const user = await db.prepare('SELECT language FROM users WHERE user_id = ?').get(message.author.id);
         const lang = user ? user.language : 'en';
 
-        const stats = await db.prepare('SELECT current_count, highest_count, failed_count FROM guild_settings WHERE guild_id = ?')
+        const stats = await db.prepare('SELECT current_count, highest_count, failed_count, last_counter, last_failed_counter FROM guild_settings WHERE guild_id = ?')
             .get(message.guild.id);
 
         if (!stats) {
             await message.reply(t('not_registered', lang));
             return;
+        }
+
+        // Get last counter's username if available
+        let lastCounterName = 'None';
+        if (stats.last_counter) {
+            const lastCounter = await db.prepare('SELECT username FROM users WHERE user_id = ?').get(stats.last_counter);
+            if (lastCounter) {
+                lastCounterName = lastCounter.username;
+            }
+        }
+
+        // Get last failed counter's username and fail count if available
+        let lastFailedCounterName = 'None';
+        let lastFailedCounterFails = 0;
+        if (stats.last_failed_counter) {
+            const lastFailedCounter = await db.prepare('SELECT username, fail_count FROM users WHERE user_id = ?').get(stats.last_failed_counter);
+            if (lastFailedCounter) {
+                lastFailedCounterName = lastFailedCounter.username;
+                lastFailedCounterFails = lastFailedCounter.fail_count;
+            }
         }
 
         const embed = new EmbedBuilder()
@@ -26,7 +46,9 @@ class ServerCommand extends BaseCommand {
             .addFields(
                 { name: 'Current Count', value: stats.current_count.toString(), inline: true },
                 { name: 'Highest Count', value: stats.highest_count.toString(), inline: true },
-                { name: 'Failed Count', value: stats.failed_count.toString(), inline: true }
+                { name: 'Failed Count', value: stats.failed_count.toString(), inline: true },
+                { name: 'Last Counter', value: lastCounterName, inline: true },
+                { name: 'Last Failed Counter', value: `${lastFailedCounterName} (${lastFailedCounterFails} fails)`, inline: true }
             )
             .setTimestamp()
             .setFooter({ text: `Requested by ${message.author.tag}` });
