@@ -1,0 +1,9 @@
+version: '3.8'
+services:
+  bot:
+    build: .
+    container_name: discord-bot
+    environment:
+      - DISCORD_TOKEN=${DISCORD_TOKEN}
+      - NODE_ENV=production
+    restart: unless-stopped 
