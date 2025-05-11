@@ -35,36 +35,22 @@ module.exports = {
 
         const expectedCount = guildSettings.current_count + 1;
 
-        // Check if the number is correct
         if (number === expectedCount) {
-            // Update the current count
-            db.prepare('UPDATE guild_settings SET current_count = ? WHERE guild_id = ?')
-                .run(number, message.guild.id);
-            
-            // Get latest guild settings
-            const updatedSettings = db.prepare('SELECT * FROM guild_settings WHERE guild_id = ?')
-                .get(message.guild.id);
-            
-            // Update highest count if needed
-            if (number > updatedSettings.highest_count) {
-                db.prepare('UPDATE guild_settings SET highest_count = ? WHERE guild_id = ?')
-                    .run(number, message.guild.id);
-            }
-            
+            // Correct count
+            db.prepare(`
+                UPDATE guild_settings 
+                SET current_count = ?, highest_count = MAX(highest_count, ?), last_counter = ? 
+                WHERE guild_id = ?
+            `).run(expectedCount, expectedCount, message.author.id, message.guild.id);
+
+            // Increment user's success count
+            db.prepare('UPDATE users SET success_count = success_count + 1 WHERE user_id = ?')
+                .run(message.author.id);
+
             // Add checkmark reaction
             await message.react('✅');
         } else {
-            // If count is less than 10, just warn the user
-            if (guildSettings.current_count < 10) {
-                await message.reply(t('incorrect_count_warning', user.language, {
-                    expected: expectedCount,
-                    current: number
-                }));
-                await message.react('⚠️');
-                return;
-            }
-
-            // Handle incorrect count for counts >= 10
+            // Handle incorrect count
             if (user.saves > 0) {
                 // User has saves
                 await message.reply(t('incorrect_count_with_save', user.language, {
@@ -72,8 +58,8 @@ module.exports = {
                     current: number
                 }));
                 
-                // Decrement saves
-                db.prepare('UPDATE users SET saves = saves - 1 WHERE user_id = ?')
+                // Decrement saves and increment fail count
+                db.prepare('UPDATE users SET saves = saves - 1, fail_count = fail_count + 1 WHERE user_id = ?')
                     .run(message.author.id);
             } else {
                 // No saves left
@@ -85,9 +71,13 @@ module.exports = {
                 // Reset count and increment failed count
                 db.prepare(`
                     UPDATE guild_settings 
-                    SET current_count = 0, failed_count = failed_count + 1 
+                    SET current_count = 0, failed_count = failed_count + 1, last_counter = NULL, last_failed_counter = ? 
                     WHERE guild_id = ?
-                `).run(message.guild.id);
+                `).run(message.author.id, message.guild.id);
+
+                // Increment user's fail count
+                db.prepare('UPDATE users SET fail_count = fail_count + 1 WHERE user_id = ?')
+                    .run(message.author.id);
             }
             
             // Add X reaction

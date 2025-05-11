@@ -25,6 +25,8 @@ class StatsCommand extends BaseCommand {
                 // { name: 'Active', value: user.active ? 'Yes' : 'No', inline: true },
                 { name: 'Language', value: user.language, inline: true },
                 { name: 'Saves', value: user.saves.toString(), inline: true },
+                { name: 'Failed Counts', value: (user.fail_count || 0).toString(), inline: true },
+                { name: 'Successful Counts', value: (user.success_count || 0).toString(), inline: true },
                 // { name: 'Member Since', value: new Date(user.created_at).toLocaleDateString(), inline: true },
                 // { name: 'Last Seen', value: new Date(user.last_seen).toLocaleDateString(), inline: true }
             )
