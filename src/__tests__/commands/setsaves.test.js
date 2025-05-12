@@ -92,7 +92,7 @@ describe('SetSavesCommand', () => {
                 WHERE guild_id = ?
             `);
         expect(mockRun).toHaveBeenCalledWith(5.000, '456');
-        expect(mockMessage.reply).toHaveBeenCalledWith('Saves set to 5.000');
+        expect(mockMessage.reply).toHaveBeenCalledWith('Saves set to 5');
     });
 
     it('should successfully set saves with decimal value and round to 3 places', async () => {

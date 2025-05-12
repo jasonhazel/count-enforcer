@@ -128,6 +128,12 @@ describe('Guild Create Event', () => {
             permissions: ['ViewChannel', 'SendMessages', 'ReadMessageHistory']
         });
         expect(mockCounterRole.setPosition).toHaveBeenCalledWith(mockBotRole.position - 1);
+        
+        // Verify all success messages are sent
+        expect(mockOwner.send).toHaveBeenCalledWith('translated_guild_welcome_Test Guild');
+        expect(mockOwner.send).toHaveBeenCalledWith('translated_guild_role_created_');
+        expect(mockOwner.send).toHaveBeenCalledWith('translated_guild_role_instructions_Bot Role');
+        expect(mockOwner.send).toHaveBeenCalledWith('translated_guild_role_permissions_');
     });
 
     test('should handle existing counter role', async () => {
@@ -166,6 +172,16 @@ describe('Guild Create Event', () => {
         await guildCreateEvent.execute(mockGuild, mockDb, mockCommands);
         
         expect(console.error).toHaveBeenCalledWith('Error in guild create event:', error);
+    });
+
+    test('should handle non-permission role creation errors', async () => {
+        mockRoleManager.cache.find.mockReturnValue(null);
+        const error = new Error('Generic role creation error');
+        mockRoleManager.create.mockRejectedValue(error);
+        
+        await guildCreateEvent.execute(mockGuild, mockDb, mockCommands);
+        
+        expect(console.error).toHaveBeenCalledWith('Error creating counter role:', error);
     });
 
     test('should use owner language preference', async () => {

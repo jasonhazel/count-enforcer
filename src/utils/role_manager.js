@@ -28,7 +28,7 @@ async function manageCounterRole(member, action, db, lang) {
         }
         return true;
     } catch (error) {
-        console.error(`Error ${action}ing counter role:`, error);
+        console.error(`Error ${action === 'add' ? 'adding' : 'removing'} counter role:`, error);
         throw error;
     }
 }

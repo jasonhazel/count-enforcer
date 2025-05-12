@@ -86,12 +86,17 @@ This document outlines the core development rules and standards for the project.
 ## Testing Requirements
 
 ## Best Practices
-- any time a test file is created or changed, make sure the test suite for that file is run
+- we are going to be test driven as much as possible
+  - write the test for each feature first, then write the code.  
+  - run test after code is applied.
 - if individual files test suite succeeds, run the coverage report
   - use `npm run test:coverage`
 - anytime you try to run `jest` remember that we're using an npm script to run tests.
 - when running tests, fail fast.  stop test execution as soon as the first error is found.
 - always use test workflow
+- try to minimize the number of test suites run at a time
+- avoid getting stalled when waiting for test output (you've been doing this lately)
+
 
 ## Test Workflow
 - for each file to be tested
@@ -99,6 +104,7 @@ This document outlines the core development rules and standards for the project.
     - write tests for file
     - run tests for file
     - fix errors in test
+  - run test coverage report
 
 ### Coverage and Standards
 - Maintain minimum test coverage of 80% across the codebase

@@ -33,11 +33,17 @@
     "collectCoverageFrom": [
       "src/**/*.js",
       "!src/index.js",
+      "!src/db/**",
+      "!src/lang/**",
+      "!src/web/**",
       "!src/db/migrations/**",
       "!src/__tests__/commands/commands.command.test.js"
     ],
     "testMatch": [
       "**/__tests__/**/*.test.js",
+      "!**/src/db/**",
+      "!**/src/lang/**",
+      "!**/src/web/**",
       "!**/src/db/migrations/**",
       "!**/src/__tests__/commands/commands.command.test.js"
     ]

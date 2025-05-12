@@ -19,7 +19,12 @@ class CommandManager {
         const command = this.getCommand(commandName);
         
         if (command) {
-            await command.execute(message, args, db, lang);
+            try {
+                await command.execute(message, args, db, lang);
+            } catch (error) {
+                console.error('Error executing command:', error);
+                // Error is caught and logged, but not re-thrown
+            }
         }
     }
 }
