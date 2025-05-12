@@ -39,5 +39,16 @@ module.exports = {
         }
         
         console.log('Finished checking guild settings');
+        
+        // Generate and output bot invite link
+        const inviteLink = client.generateInvite({
+            scopes: ['bot', 'applications.commands'],
+            permissions: ['SendMessages', 'ReadMessageHistory', 'ManageMessages', 'EmbedLinks', 'AttachFiles']
+        });
+        
+        console.log('======================================');
+        console.log('Add this bot to your server using the following link:');
+        console.log(inviteLink);
+        console.log('======================================');
     }
 }; 
