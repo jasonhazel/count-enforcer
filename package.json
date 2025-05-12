@@ -7,6 +7,7 @@
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
     "docker:start": "docker compose up --build",
+    "docker:build-push": "docker build -t mrhazel/count-enforcer . && docker push mrhazel/count-enforcer",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"
