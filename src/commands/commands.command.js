@@ -20,10 +20,12 @@ class CommandsCommand extends BaseCommand {
         for (const file of commandFiles) {
             const CommandClass = require(path.join(commandsDir, file));
             const command = new CommandClass();
-            commands.push({
-                name: command.name,
-                description: command.description
-            });
+            if (!command.hidden) {
+                commands.push({
+                    name: command.name,
+                    description: command.description
+                });
+            }
         }
 
         // Sort commands alphabetically

@@ -3,7 +3,7 @@ const { t } = require('../lang/i18n');
 
 class SetCountCommand extends BaseCommand {
     constructor() {
-        super('setcount', 'Set the current count to a specific number (server owner only)');
+        super('setcount', 'Set the current count to a specific number (server owner only)', true);
     }
 
     async execute(message, args, db, lang) {

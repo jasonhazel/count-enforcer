@@ -3,7 +3,7 @@ const { t } = require('../lang/i18n');
 
 class SetSavesCommand extends BaseCommand {
     constructor() {
-        super('setsaves', 'Set the number of saves for the server (server owner only)');
+        super('setsaves', 'Set the number of saves for the server (server owner only)', true);
     }
 
     async execute(message, args, db, lang) {

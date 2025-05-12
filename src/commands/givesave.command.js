@@ -3,7 +3,7 @@ const { t } = require('../lang/i18n');
 
 class GiveSaveCommand extends BaseCommand {
     constructor() {
-        super('givesave', 'Give a save to a user (Admin only)');
+        super('givesave', 'Give a save to a user (Admin only)', true);
     }
 
     async execute(message, args, db, lang) {

@@ -1,7 +1,8 @@
 class BaseCommand {
-    constructor(name, description) {
+    constructor(name, description, hidden = false) {
         this.name = name;
         this.description = description;
+        this.hidden = hidden;
     }
 
     async execute(message, args, db, lang) {
