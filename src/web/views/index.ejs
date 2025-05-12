@@ -3,61 +3,179 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Discord Bot</title>
+    <title>Count Enforcer - Discord Bot</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background: linear-gradient(135deg, #7289da, #5865f2);
+            background: linear-gradient(135deg, #69398e, #4a2a63);
             color: #ffffff;
         }
         .container {
-            text-align: center;
+            display: flex;
+            gap: 2rem;
             padding: 2rem;
             background: rgba(0, 0, 0, 0.2);
             border-radius: 10px;
             backdrop-filter: blur(10px);
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 1000px;
+            width: 90%;
+            margin-bottom: 2rem;
+        }
+        .main-content {
+            flex: 1;
+            text-align: left;
+        }
+        .features {
+            flex: 1;
+            text-align: left;
+            padding-left: 2rem;
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
         }
         h1 {
             margin-bottom: 1.5rem;
             font-size: 2.5rem;
         }
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
         .add-bot-button {
             display: inline-block;
             padding: 1rem 2rem;
-            background-color: #5865f2;
+            background-color: #69398e;
             color: white;
             text-decoration: none;
             border-radius: 5px;
             font-size: 1.2rem;
             transition: background-color 0.3s ease;
+            margin-top: 1rem;
         }
         .add-bot-button:hover {
-            background-color: #4752c4;
+            background-color: #4a2a63;
         }
         .description {
             margin: 1.5rem 0;
             font-size: 1.1rem;
             line-height: 1.6;
-            max-width: 600px;
+        }
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .feature-item {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        .feature-item:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #69398e;
+            font-size: 1.5rem;
+        }
+        .feature-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+        }
+        .feature-description {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .features {
+                padding-left: 0;
+                border-left: none;
+                border-top: 1px solid rgba(255, 255, 255, 0.2);
+                padding-top: 1rem;
+            }
+        }
+        .footer {
+            text-align: center;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 1rem;
+        }
+        .footer a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            margin: 0 1rem;
+        }
+        .footer a:hover {
+            color: #ffffff;
+        }
+        .vibes-disclaimer {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+            font-style: italic;
+            text-align: right;
+            max-width: 200px;
+            line-height: 1.4;
+        }
+        .vibes-disclaimer strong {
+            color: rgba(255, 255, 255, 0.8);
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Add Bot to Your Server</h1>
-        <p class="description">
-            Enhance your Discord server with our powerful bot. Get started by clicking the button below to add the bot to your server.
-        </p>
-        <a href="<%= inviteUrl %>" class="add-bot-button" target="_blank">
-            Add to Discord
-        </a>
+        <div class="main-content">
+            <h1>Count Enforcer</h1>
+            <p class="description">
+                The ultimate counting game bot for Discord. Keep your server counting, track scores, and ensure fair play - all with a single click.
+            </p>
+            <a href="<%= inviteUrl %>" class="add-bot-button" target="_blank">
+                Add to Discord
+            </a>
+        </div>
+        <div class="features">
+            <h2>Features</h2>
+            <ul class="feature-list">
+                <li class="feature-item">
+                    <div class="feature-title">Score Tracking</div>
+                    <div class="feature-description">Keep track of your server's current count, highest count, and individual user statistics.</div>
+                </li>
+                <li class="feature-item">
+                    <div class="feature-title">Role Management</div>
+                    <div class="feature-description">Automatic role assignment for participants and easy management of counting permissions.</div>
+                </li>
+                <li class="feature-item">
+                    <div class="feature-title">Multi-language Support</div>
+                    <div class="feature-description">Choose your preferred language for bot interactions and commands.</div>
+                </li>
+                <li class="feature-item">
+                    <div class="feature-title">Fair Play Enforcement</div>
+                    <div class="feature-description">Built-in rules to prevent double-counting and ensure everyone gets a fair chance to participate.</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer">
+        <a href="https://github.com/jasonhazel/count-enforcer" target="_blank">source</a>
+        <a href="https://github.com/jasonhazel" target="_blank">jasonhazel</a>
+    </div>
+    <div class="vibes-disclaimer">
+        <strong>Disclaimer:</strong> This bot was 99.7% coded with vibes. The remaining 0.3% was pure chaos.
     </div>
 </body>
 </html> 
