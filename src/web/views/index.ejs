@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Discord Bot</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #7289da, #5865f2);
+            color: #ffffff;
+        }
+        .container {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            margin-bottom: 1.5rem;
+            font-size: 2.5rem;
+        }
+        .add-bot-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: #5865f2;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            transition: background-color 0.3s ease;
+        }
+        .add-bot-button:hover {
+            background-color: #4752c4;
+        }
+        .description {
+            margin: 1.5rem 0;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            max-width: 600px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Add Bot to Your Server</h1>
+        <p class="description">
+            Enhance your Discord server with our powerful bot. Get started by clicking the button below to add the bot to your server.
+        </p>
+        <a href="<%= inviteUrl %>" class="add-bot-button" target="_blank">
+            Add to Discord
+        </a>
+    </div>
+</body>
+</html> 

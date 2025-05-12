@@ -6,6 +6,9 @@ services:
     environment:
       - DISCORD_TOKEN=${DISCORD_TOKEN}
       - NODE_ENV=production
+      - WEB_PORT=3000
+    ports:
+      - "3000:3000"
     restart: unless-stopped 
     volumes:
       - ./data:/data

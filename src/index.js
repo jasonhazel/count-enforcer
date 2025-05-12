@@ -3,6 +3,7 @@ const Database = require('better-sqlite3');
 const fs = require('fs');
 const path = require('path');
 const MigrationManager = require('./db/migration-manager');
+const setupWebServer = require('./web/server');
 
 // Initialize database and run migrations
 const db = new Database('/data/bot.db');
@@ -80,4 +81,7 @@ if (!token) {
     throw new Error('No Discord token found. Please set DISCORD_TOKEN environment variable');
 }
 
-client.login(token); 
+client.login(token).then(() => {
+    // Start web server after successful login
+    setupWebServer(client);
+}); 
