@@ -1,6 +1,6 @@
 const { Events } = require('discord.js');
-const { getGuildSettings } = require('../utils/dbHelpers');
-const { getUserLanguage } = require('../utils/dbHelpers');
+const { getGuildSettings } = require('../utils/db_helpers');
+const { getUserLanguage } = require('../utils/db_helpers');
 
 module.exports = {
     name: Events.MessageCreate,

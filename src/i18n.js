@@ -11,6 +11,12 @@ const translations = {
         pong: latency => `Pong! Latency: ${latency}ms`,
         echo: msg => msg,
         echo_missing: 'Please provide a message to echo!',
+        owner_only_command: 'This command can only be used by the server owner.',
+        setcount_usage: 'Please provide a number to set the count to. Usage: !setcount [number]',
+        setcount_invalid_number: 'Please provide a valid number.',
+        setcount_negative: 'The count cannot be negative.',
+        setcount_success: ({ count }) => `Count has been set to ${count}.`,
+        setcount_error: 'There was an error setting the count. Please try again later.',
         incorrect_count_warning: ({ expected, current }) => 
             `Warning: You said ${current}, but the next number should be ${expected}. No penalty since count is below 10.`,
         incorrect_count_with_save: ({ expected, current }) => 
@@ -42,6 +48,12 @@ const translations = {
         pong: latency => `¡Pong! Latencia: ${latency}ms`,
         echo: msg => msg,
         echo_missing: '¡Por favor proporciona un mensaje para repetir!',
+        owner_only_command: 'Este comando solo puede ser usado por el propietario del servidor.',
+        setcount_usage: 'Por favor, proporcione un número para establecer la cuenta en. Uso: !setcount [número]',
+        setcount_invalid_number: 'Por favor, proporcione un número válido.',
+        setcount_negative: 'La cuenta no puede ser negativa.',
+        setcount_success: ({ count }) => `La cuenta se ha establecido en ${count}.`,
+        setcount_error: 'Hubo un error al establecer la cuenta. Por favor, inténtelo más tarde.',
         incorrect_count_warning: ({ expected, current }) => 
             `Advertencia: Dijiste ${current}, pero el siguiente número debería ser ${expected}. Sin penalización ya que la cuenta está por debajo de 10.`,
         incorrect_count_with_save: ({ expected, current }) => 
@@ -73,6 +85,12 @@ const translations = {
         pong: latency => `Pong! Latenz: ${latency}ms`,
         echo: msg => msg,
         echo_missing: 'Bitte gib eine Nachricht zum Wiederholen an!',
+        owner_only_command: 'Diese Befehl kann nur vom Serverbesitzer verwendet werden.',
+        setcount_usage: 'Bitte geben Sie eine Zahl ein, um die Zählung festzulegen. Verwendung: !setcount [Zahl]',
+        setcount_invalid_number: 'Bitte geben Sie eine gültige Zahl ein.',
+        setcount_negative: 'Die Zählung kann nicht negativ sein.',
+        setcount_success: ({ count }) => `Die Zählung wurde auf ${count} gesetzt.`,
+        setcount_error: 'Es gab einen Fehler beim Festlegen der Zählung. Bitte versuchen Sie es später erneut.',
         incorrect_count_warning: ({ expected, current }) => 
             `Warnung: Du hast ${current} gesagt, aber die nächste Zahl sollte ${expected} sein. Keine Strafe, da der Zähler unter 10 ist.`,
         incorrect_count_with_save: ({ expected, current }) => 
@@ -104,6 +122,12 @@ const translations = {
         pong: latency => `Pong ! Latence : ${latency}ms`,
         echo: msg => msg,
         echo_missing: 'Veuillez fournir un message à répéter !',
+        owner_only_command: 'Ce commande ne peut être utilisée que par le propriétaire du serveur.',
+        setcount_usage: 'Veuillez fournir un nombre pour définir le compte. Usage: !setcount [nombre]',
+        setcount_invalid_number: 'Veuillez fournir un nombre valide.',
+        setcount_negative: 'Le compte ne peut être négatif.',
+        setcount_success: ({ count }) => `Le compte a été défini sur ${count}.`,
+        setcount_error: 'Il y a eu une erreur lors de la définition du compte. Veuillez réessayer plus tard.',
         incorrect_count_warning: ({ expected, current }) => 
             `Attention : Vous avez dit ${current}, mais le prochain nombre devrait être ${expected}. Pas de pénalité car le compte est inférieur à 10.`,
         incorrect_count_with_save: ({ expected, current }) => 
@@ -135,6 +159,12 @@ const translations = {
         pong: latency => `Pong！延迟：${latency}毫秒`,
         echo: msg => msg,
         echo_missing: '请提供要重复的消息！',
+        owner_only_command: '此命令只能由服务器所有者使用。',
+        setcount_usage: '请提供要设置的数字。用法：!setcount [数字]',
+        setcount_invalid_number: '请提供有效的数字。',
+        setcount_negative: '计数不能为负。',
+        setcount_success: ({ count }) => `计数已设置为${count}。`,
+        setcount_error: '设置计数时发生错误。请稍后再试。',
         incorrect_count_warning: ({ expected, current }) => 
             `警告：您说了${current}，但下一个数字应该是${expected}。由于计数低于10，不进行惩罚。`,
         incorrect_count_with_save: ({ expected, current }) => 

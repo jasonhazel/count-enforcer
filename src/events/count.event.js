@@ -1,6 +1,6 @@
 const { Events } = require('discord.js');
 const { t } = require('../i18n');
-const { getUserLanguage } = require('../utils/dbHelpers');
+const { getUserLanguage } = require('../utils/db_helpers');
 
 const HIDDEN_MILESTONES = {
     42: '🎉 The answer to life, the universe, and everything!',

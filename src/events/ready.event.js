@@ -1,5 +1,5 @@
 const { Events } = require('discord.js');
-const { getGuildSettings, createGuildSettings } = require('../utils/dbHelpers');
+const { getGuildSettings, createGuildSettings } = require('../utils/db_helpers');
 
 module.exports = {
     name: Events.ClientReady,

@@ -1,7 +1,7 @@
 const BaseCommand = require('./base');
 const { t } = require('../i18n');
-const { deactivateUser } = require('../utils/dbHelpers');
-const { manageCounterRole } = require('../utils/roleManager');
+const { deactivateUser } = require('../utils/db_helpers');
+const { manageCounterRole } = require('../utils/role_manager');
 
 class UnregisterCommand extends BaseCommand {
     constructor() {

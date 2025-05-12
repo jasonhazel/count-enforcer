@@ -2,7 +2,7 @@ const { Client, GatewayIntentBits, Events } = require('discord.js');
 const Database = require('better-sqlite3');
 const fs = require('fs');
 const path = require('path');
-const MigrationManager = require('./db/migration-manager');
+const MigrationManager = require('./db/migration_manager');
 const setupWebServer = require('./web/server');
 
 // Initialize database and run migrations
@@ -47,7 +47,7 @@ for (const file of commandFiles) {
 
 // Load event handlers
 const eventsPath = path.join(__dirname, 'events');
-const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
+const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.event.js'));
 
 console.log(`Loading ${eventFiles.length} event handlers...`);
 
