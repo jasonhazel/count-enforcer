@@ -1,6 +1,17 @@
 const { Events } = require('discord.js');
 const { t } = require('../i18n');
 
+const HIDDEN_MILESTONES = {
+    42: '🎉 The answer to life, the universe, and everything!',
+    69: '😏 Nice...',
+    256: '💻 A perfect byte!',
+    420: '🌿 Blaze it!',
+    512: '🎮 Half a kilobyte of pure gaming!',
+    640: '💻 "640K ought to be enough for anybody" - Bill Gates',
+    666: '😈 The number of the beast!',
+    1024: '💾 A full kilobyte!'
+};
+
 module.exports = {
     name: Events.MessageCreate,
     async execute(message, db) {
@@ -65,9 +76,12 @@ module.exports = {
                 milestoneBonus = 0.5;
             }
 
+            // Calculate hidden milestone bonus
+            const hiddenBonus = HIDDEN_MILESTONES[expectedCount] ? 1 : 0;
+            const hiddenMessage = HIDDEN_MILESTONES[expectedCount];
+
             // Calculate total saves to add and round to 3 decimal places
-            const savesToAdd = Number(((baseSaveRate * streakMultiplier) + milestoneBonus).toFixed(3));
-        
+            const savesToAdd = Number(((baseSaveRate * streakMultiplier) + milestoneBonus + hiddenBonus).toFixed(3));
 
             // Update guild settings with new count and saves
             db.prepare(`
@@ -94,6 +108,11 @@ module.exports = {
             // Add suspicious emoji if server owner double counted
             if (isDoubleCount && message.author.id === message.guild.ownerId) {
                 await message.react('👀');
+            }
+
+            // Send hidden milestone message if applicable
+            if (hiddenMessage) {
+                await message.channel.send(hiddenMessage);
             }
         } else {
             // Handle incorrect count
