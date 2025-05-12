@@ -18,16 +18,31 @@ module.exports = {
         // Ignore bot messages
         if (message.author.bot) return;
 
-        // Check if user has counter role
-        const counterRole = message.guild.roles.cache.find(role => role.name.toLowerCase() === 'counter');
-        if (!counterRole || !message.member.roles.cache.has(counterRole.id)) {
+        // Get guild settings to check command prefix
+        const prefixSettings = db.prepare('SELECT prefix FROM guild_settings WHERE guild_id = ?').get(message.guild.id);
+        if (!prefixSettings) return;
+
+        // Skip if message starts with a command
+        if (message.content.startsWith(prefixSettings.prefix)) {
             return;
         }
 
-        // Check if user is registered
-        const user = db.prepare('SELECT * FROM users WHERE user_id = ?').get(message.author.id);
-        if (!user || !user.active) {
+        // Check if user has counter role
+        const counterRole = message.guild.roles.cache.find(role => role.name.toLowerCase() === 'counter');
+        if (!counterRole || !message.member.roles.cache.has(counterRole.id)) {
+            await message.reply('You need the Counter role to participate in counting! Type !register to get the role.');
             return;
+        }
+
+        // Check if user is registered, if not register them
+        let user = db.prepare('SELECT * FROM users WHERE user_id = ?').get(message.author.id);
+        if (!user) {
+            // Register new user
+            db.prepare(`
+                INSERT INTO users (user_id, username, language, active, success_count, fail_count, current_streak, highest_streak)
+                VALUES (?, ?, 'en', 1, 0, 0, 0, 0)
+            `).run(message.author.id, message.author.username);
+            user = db.prepare('SELECT * FROM users WHERE user_id = ?').get(message.author.id);
         }
 
         // Check if message is a number
