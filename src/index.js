@@ -72,7 +72,7 @@ for (const file of eventFiles) {
 
 // Error handling
 client.on('error', error => {
-    console.error('Discord client error:', error.message);
+    console.error('Discord client error:', error);
 });
 
 // Login

@@ -24,7 +24,6 @@ class UserCommand extends BaseCommand {
                 // { name: 'Username', value: user.username, inline: true },
                 // { name: 'Active', value: user.active ? 'Yes' : 'No', inline: true },
                 { name: 'Language', value: user.language, inline: true },
-                { name: 'Saves', value: user.saves.toString(), inline: true },
                 { name: 'Failed Counts', value: (user.fail_count || 0).toString(), inline: true },
                 { name: 'Successful Counts', value: (user.success_count || 0).toString(), inline: true },
                 { name: 'Current Streak', value: (user.current_streak || 0).toString(), inline: true },
