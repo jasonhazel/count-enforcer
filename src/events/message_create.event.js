@@ -1,6 +1,7 @@
 const { Events } = require('discord.js');
 const { getGuildSettings } = require('../utils/db_helpers');
 const { getUserLanguage } = require('../utils/db_helpers');
+const { t } = require('../lang/i18n');
 
 module.exports = {
     name: Events.MessageCreate,
@@ -26,7 +27,7 @@ module.exports = {
                 await command.execute(message, args, db, lang);
             } catch (error) {
                 console.error('Error executing command:', error);
-                message.reply('There was an error executing that command.');
+                message.reply(t('command_execution_error', lang));
             }
         }
     }

@@ -38,7 +38,62 @@ const translations = {
         "COMME ÊTRE MAL PAYÉ, MEC?! POUR TRAVAILLER?! PUTAIN NON!!!! " +
         "MAIS DU PAIN AUX BANANES?! AU PUTAIN DE BOULOT, MEC?! PUTAIN OUI!!!!!! " +
         "PUTAIN OUI, FRÈRE!!!! PUTAIN OUI!! " +
-        "PAIN AUX BANANES, FRÈRE, AU PUTAIN DE BOULOT, MEC!!!! PUTAIN OUI!!"
+        "PAIN AUX BANANES, FRÈRE, AU PUTAIN DE BOULOT, MEC!!!! PUTAIN OUI!!",
+    
+    // GiveSave command translations
+    givesave_owner_only: 'Cette commande ne peut être utilisée que par le propriétaire du serveur.',
+    givesave_usage: 'Veuillez fournir un nom d\'utilisateur. Utilisation : !givesave <nom d\'utilisateur>',
+    givesave_user_not_found: username => `Utilisateur "${username}" non trouvé dans la base de données.`,
+    givesave_success: (username, saves) => `Une sauvegarde a été donnée à ${username}. Il a maintenant ${saves} sauvegardes.`,
+    
+    // Guild welcome messages
+    guild_welcome: guildName => `Merci de m'avoir ajouté à ${guildName} ! 🎉`,
+    guild_missing_permissions: permissions => `Je remarque qu'il me manque certaines permissions nécessaires. Veuillez vous assurer que j'ai les permissions suivantes :\n${permissions.map(p => `- ${p}`).join('\n')}`,
+    guild_permissions_instructions: `Vous pouvez accorder ces permissions en :\n1. Allant dans les Paramètres du Serveur\n2. Cliquant sur "Rôles"\n3. Trouvant mon rôle\n4. Activant les permissions manquantes\n5. Sauvegardant les changements`,
+    guild_role_created: 'J\'ai automatiquement créé le rôle "counter" avec les permissions nécessaires. Ce rôle sera automatiquement attribué aux utilisateurs lorsqu\'ils s\'inscriront au bot.',
+    guild_role_instructions: botRole => `Note Importante sur les Permissions :
+- Mon rôle (${botRole}) doit être au-dessus du rôle "counter" dans la hiérarchie
+- Si vous avez des rôles existants qui doivent être gérés par le bot, ils doivent être en dessous de mon rôle
+- Si vous utilisez des permissions basées sur les rôles dans vos canaux, assurez-vous de les ajuster pour permettre au rôle "counter" d'accéder aux canaux nécessaires`,
+    guild_role_permissions: 'Le rôle "counter" a des permissions de base (Voir le Canal, Envoyer des Messages, Lire l\'Historique des Messages) pour s\'assurer que les utilisateurs peuvent interagir avec le bot',
+    guild_role_position_error: botRole => `Je remarque que le rôle "counter" est actuellement au-dessus de mon rôle le plus élevé. Pour m'assurer que je peux gérer correctement ce rôle, veuillez :\n\n1. Aller dans les Paramètres du Serveur\n2. Cliquer sur "Rôles"\n3. Faire glisser mon rôle (${botRole}) au-dessus du rôle "counter"\n4. Sauvegarder les changements`,
+    
+    // Role management error messages
+    role_error_not_found: 'Erreur : Rôle counter non trouvé. Veuillez contacter un administrateur.',
+    role_error_missing_permission: 'Erreur : Le bot n\'a pas la permission de gérer les rôles. Veuillez contacter un administrateur.',
+    role_error_hierarchy: 'Erreur : Le rôle du bot n\'est pas assez haut dans la hiérarchie. Veuillez contacter un administrateur.',
+    
+    // User command translations
+    user_stats_title: 'Statistiques Utilisateur',
+    user_stats_description: username => `Statistiques pour ${username}`,
+    user_stats_language: 'Langue',
+    user_stats_failed_counts: 'Comptages Échoués',
+    user_stats_successful_counts: 'Comptages Réussis',
+    user_stats_current_streak: 'Série Actuelle',
+    user_stats_highest_streak: 'Meilleure Série',
+    
+    // Rules command translations
+    rules_title: '🎲 Règles du Jeu de Comptage',
+    rules_description: 'Voici comment jouer au jeu de comptage :',
+    rules_basic_title: '📝 Règles de Base',
+    rules_basic_content: '• Comptez à partir de 1, un nombre à la fois\n• Chaque personne ne peut compter qu\'une seule fois de suite',
+    rules_how_to_title: '🎯 Comment Jouer',
+    rules_how_to_content: '• Utilisez `!register` pour rejoindre et `!lang` pour définir votre langue\n• Obtenez le rôle "counter" pour commencer à compter',
+    rules_mistakes_title: '❌ Erreurs',
+    rules_mistakes_content: '• Si vous faites une erreur, le compte est remis à 0\n• Votre série est réinitialisée et votre nombre d\'échecs augmente',
+    rules_saves_title: '💾 Sauvegardes',
+    rules_saves_content: '• Utilisez `!saves` pour voir comment fonctionnent les sauvegardes\n• Chaque sauvegarde empêche une erreur de réinitialiser le compte',
+    rules_stats_title: '📊 Statistiques',
+    rules_stats_content: '• Utilisez `!user` pour voir vos statistiques\n• Utilisez `!server` pour voir les statistiques du serveur',
+    rules_footer: username => `Demandé par ${username}`,
+    
+    // Commands list translations
+    commands_title: 'Commandes Disponibles',
+    commands_description: 'Voici toutes les commandes que vous pouvez utiliser :',
+    commands_footer: username => `Demandé par ${username}`,
+    
+    // Console messages for administrators
+    console_invite_link: 'Ajoutez ce bot à votre serveur en utilisant le lien suivant :'
 };
 
 module.exports = translations; 

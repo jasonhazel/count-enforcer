@@ -9,14 +9,14 @@ class GiveSaveCommand extends BaseCommand {
     async execute(message, args, db, lang) {
         // Check if the user is the server owner
         if (message.author.id !== message.guild.ownerId) {
-            await message.reply('This command can only be used by the server owner.');
+            await message.reply(t('givesave_owner_only', lang));
             return;
         }
 
         const targetUsername = args[0];
         
         if (!targetUsername) {
-            await message.reply('Please provide a username. Usage: !givesave <username>');
+            await message.reply(t('givesave_usage', lang));
             return;
         }
         
@@ -24,7 +24,7 @@ class GiveSaveCommand extends BaseCommand {
         const user = db.prepare('SELECT * FROM users WHERE username = ?').get(targetUsername);
         
         if (!user) {
-            await message.reply(`User "${targetUsername}" not found in the database.`);
+            await message.reply(t('givesave_user_not_found', lang, targetUsername));
             return;
         }
 
@@ -32,7 +32,7 @@ class GiveSaveCommand extends BaseCommand {
         db.prepare('UPDATE users SET saves = saves + 1 WHERE user_id = ?')
             .run(user.user_id);
 
-        await message.reply(`Successfully gave a save to ${targetUsername}. They now have ${user.saves + 1} saves.`);
+        await message.reply(t('givesave_success', lang, targetUsername, user.saves + 1));
     }
 }
 

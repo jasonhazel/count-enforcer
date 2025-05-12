@@ -38,7 +38,62 @@ const translations = {
         "LIKE GETTING PAID NOT A LOT OF MONEY, DUDE?! FOR FUCKING WORKING?! HELL NO!!!! " +
         "BUT BANANA BREAD?! AT FUCKING WORK, DUDE?! HELL YEAH!!!!!! " +
         "HELL YEAH, BRO!!!! HELL YEAH!! " +
-        "BANANA BREAD, BRO, AT FUCKING WORK, DUDE!!!! HELL YEAH!!"
+        "BANANA BREAD, BRO, AT FUCKING WORK, DUDE!!!! HELL YEAH!!",
+    
+    // GiveSave command translations
+    givesave_owner_only: 'This command can only be used by the server owner.',
+    givesave_usage: 'Please provide a username. Usage: !givesave <username>',
+    givesave_user_not_found: username => `User "${username}" not found in the database.`,
+    givesave_success: (username, saves) => `Successfully gave a save to ${username}. They now have ${saves} saves.`,
+    
+    // Guild welcome messages
+    guild_welcome: guildName => `Thank you for adding me to ${guildName}! 🎉`,
+    guild_missing_permissions: permissions => `I notice I'm missing some required permissions. Please ensure I have the following permissions:\n${permissions.map(p => `- ${p}`).join('\n')}`,
+    guild_permissions_instructions: `You can grant these permissions by:\n1. Going to Server Settings\n2. Clicking on "Roles"\n3. Finding my role\n4. Enabling the missing permissions\n5. Saving the changes`,
+    guild_role_created: 'I\'ve automatically created the "counter" role with the necessary permissions. This role will be automatically assigned to users when they register with the bot.',
+    guild_role_instructions: botRole => `Important Note About Permissions:
+- My role (${botRole}) needs to be above the "counter" role in the role hierarchy
+- If you have existing roles that need to be managed by the bot, they should be below my role
+- If you're using role-based permissions in your channels, make sure to adjust them to allow the "counter" role to access necessary channels`,
+    guild_role_permissions: 'The "counter" role has basic permissions (View Channel, Send Messages, Read Message History) to ensure users can interact with the bot',
+    guild_role_position_error: botRole => `I notice that the "counter" role is currently above my highest role. To ensure I can properly manage this role, please:\n\n1. Go to Server Settings\n2. Click on "Roles"\n3. Drag my role (${botRole}) above the "counter" role\n4. Save the changes`,
+    
+    // Role management error messages
+    role_error_not_found: 'Error: Counter role not found. Please contact an administrator.',
+    role_error_missing_permission: 'Error: Bot does not have permission to manage roles. Please contact an administrator.',
+    role_error_hierarchy: 'Error: Bot\'s role is not high enough in the role hierarchy. Please contact an administrator.',
+    
+    // User command translations
+    user_stats_title: 'User Statistics',
+    user_stats_description: username => `Statistics for ${username}`,
+    user_stats_language: 'Language',
+    user_stats_failed_counts: 'Failed Counts',
+    user_stats_successful_counts: 'Successful Counts',
+    user_stats_current_streak: 'Current Streak',
+    user_stats_highest_streak: 'Highest Streak',
+    
+    // Rules command translations
+    rules_title: '🎲 Counting Game Rules',
+    rules_description: 'Here\'s how to play the counting game:',
+    rules_basic_title: '📝 Basic Rules',
+    rules_basic_content: '• Count up from 1, one number at a time\n• Each person can only count once in a row',
+    rules_how_to_title: '🎯 How to Play',
+    rules_how_to_content: '• Use `!register` to join and `!lang` to set your language\n• Get the "counter" role to start counting',
+    rules_mistakes_title: '❌ Mistakes',
+    rules_mistakes_content: '• If you make a mistake, the count resets to 0\n• Your streak resets and fail count increases',
+    rules_saves_title: '💾 Saves',
+    rules_saves_content: '• Use `!saves` to see how saves work\n• Each save prevents one mistake from resetting the count',
+    rules_stats_title: '📊 Statistics',
+    rules_stats_content: '• Use `!user` to see your stats\n• Use `!server` to see server stats',
+    rules_footer: username => `Requested by ${username}`,
+    
+    // Commands list translations
+    commands_title: 'Available Commands',
+    commands_description: 'Here are all the commands you can use:',
+    commands_footer: username => `Requested by ${username}`,
+    
+    // Console messages for administrators
+    console_invite_link: 'Add this bot to your server using the following link:'
 };
 
 module.exports = translations; 

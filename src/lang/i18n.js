@@ -18,7 +18,7 @@ fs.readdirSync(langDir)
 function t(key, lang, ...args) {
     const l = translations[lang] ? lang : 'en';
     const value = translations[l][key];
-    return typeof value === 'function' ? value(...args) : value;
+    return typeof value === 'function' ? value(...args) : (value || key);
 }
 
 // Export the list of supported language codes

@@ -1,11 +1,10 @@
 const BaseCommand = require('./base');
 const { t } = require('../lang/i18n');
-const { updateUserLastSeen, createNewUser } = require('../utils/db_helpers');
-const { manageCounterRole } = require('../utils/role_manager');
+const { updateUserLastSeen, createNewUser, manageCounterRole } = require('../utils/db_helpers');
 
 class RegisterCommand extends BaseCommand {
     constructor() {
-        super('register', 'Register yourself in the bot\'s database');
+        super('register', 'Register to participate in counting');
     }
 
     async execute(message, args, db, lang) {
@@ -28,13 +27,13 @@ class RegisterCommand extends BaseCommand {
             } catch (error) {
                 switch (error.message) {
                     case 'COUNTER_ROLE_NOT_FOUND':
-                        await message.reply('Error: Counter role not found. Please contact an administrator.');
+                        await message.reply(t('role_error_not_found', lang));
                         break;
                     case 'MISSING_MANAGE_ROLES_PERMISSION':
-                        await message.reply('Error: Bot does not have permission to manage roles. Please contact an administrator.');
+                        await message.reply(t('role_error_missing_permission', lang));
                         break;
                     case 'INSUFFICIENT_ROLE_HIERARCHY':
-                        await message.reply('Error: Bot\'s role is not high enough in the role hierarchy. Please contact an administrator.');
+                        await message.reply(t('role_error_hierarchy', lang));
                         break;
                     default:
                         await message.reply(t('error_register', lang));

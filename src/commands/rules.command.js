@@ -10,37 +10,37 @@ class RulesCommand extends BaseCommand {
     async execute(message, args, db, lang) {
         const embed = new EmbedBuilder()
             .setColor('#69398e')
-            .setTitle('🎲 Counting Game Rules')
-            .setDescription('Here\'s how to play the counting game:')
+            .setTitle(t('rules_title', lang))
+            .setDescription(t('rules_description', lang))
             .addFields(
                 {
-                    name: '📝 Basic Rules',
-                    value: '• Count up from 1, one number at a time\n• Each person can only count once in a row',
+                    name: t('rules_basic_title', lang),
+                    value: t('rules_basic_content', lang),
                     inline: false
                 },
                 {
-                    name: '🎯 How to Play',
-                    value: '• Use `!register` to join and `!lang` to set your language\n• Get the "counter" role to start counting',
+                    name: t('rules_how_to_title', lang),
+                    value: t('rules_how_to_content', lang),
                     inline: false
                 },
                 {
-                    name: '❌ Mistakes',
-                    value: '• If you make a mistake, the count resets to 0\n• Your streak resets and fail count increases',
+                    name: t('rules_mistakes_title', lang),
+                    value: t('rules_mistakes_content', lang),
                     inline: false
                 },
                 {
-                    name: '💾 Saves',
-                    value: '• Use `!saves` to see how saves work\n• Each save prevents one mistake from resetting the count',
+                    name: t('rules_saves_title', lang),
+                    value: t('rules_saves_content', lang),
                     inline: false
                 },
                 {
-                    name: '📊 Statistics',
-                    value: '• Use `!user` to see your stats\n• Use `!server` to see server stats',
+                    name: t('rules_stats_title', lang),
+                    value: t('rules_stats_content', lang),
                     inline: false
                 }
             )
             .setTimestamp()
-            .setFooter({ text: `Requested by ${message.author.tag}` });
+            .setFooter({ text: t('rules_footer', lang, message.author.tag) });
 
         await message.reply({ embeds: [embed] });
     }

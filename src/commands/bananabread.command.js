@@ -1,5 +1,5 @@
 const BaseCommand = require('./base');
-const { t } = require('../i18n');
+const { t } = require('../lang/i18n');
 
 class BananabreadCommand extends BaseCommand {
     constructor() {

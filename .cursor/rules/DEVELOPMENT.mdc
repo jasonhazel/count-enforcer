@@ -14,6 +14,7 @@ We are building a discord bot to track counting.
 - server owner can double count for testing purposes
 - when a user counts incorrectly, one save is removed (if available)
 - if save is not available, set count to zero.
+- we want to have full localization for any text that used by the bot.
 
 # Development Guidelines
 
@@ -49,6 +50,13 @@ This document outlines the core development rules and standards for the project.
 - Keep commits atomic and focused on a single change
 - Ensure all tests pass before committing
 - Get code review before merging
+
+## localization
+
+### best practices
+- any time text is being sent by the bot, it should use i18n localization
+- any time new text is needed, make sure it has an appropriate entry in all language files.
+
 
 ## Docker Development
 
