@@ -5,6 +5,7 @@ services:
     container_name: discord-bot
     environment:
       - DISCORD_TOKEN=${DISCORD_TOKEN}
+      - CLIENT_ID=${CLIENT_ID}
       - NODE_ENV=production
       - WEB_PORT=3000
     ports:

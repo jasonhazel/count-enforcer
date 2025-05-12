@@ -1,6 +1,6 @@
 # Discord Bot with Web UI
 
-A Discord bot with a web interface for easy server management.
+A Discord bot with a web interface for easy server management. Built mostly by [Cursor AI](https://cursor.sh) because who has time to write code manually anymore?
 
 ## Features
 
@@ -9,6 +9,16 @@ A Discord bot with a web interface for easy server management.
 - Server statistics tracking
 - Multi-language support
 - Save system for counting mistakes
+
+## Development with Cursor AI
+
+Look, I'm not saying I let an AI write most of this code... but I'm also not saying I didn't. [Cursor AI](https://cursor.sh) did the heavy lifting while I mostly just:
+- Watched it generate code and pretended to understand what was happening
+- Fixed the occasional bug it introduced
+- Added snarky comments to make it look like I was involved
+- Took credit for its work
+
+The development process was "accelerated" by Cursor AI's ability to understand my vague hand-waving and turn it into actual working code. 99.7% vibes, 0.3% actual effort.
 
 ## Prerequisites
 
@@ -24,8 +34,13 @@ Create a `.env` file in the root directory with the following variables:
 ```
 DISCORD_TOKEN=your_discord_bot_token
 CLIENT_ID=your_discord_application_client_id
-PORT=3001
+WEB_PORT=3000  # Optional, defaults to 3000
 ```
+
+The bot needs these to:
+- Actually connect to Discord (DISCORD_TOKEN)
+- Generate the correct invite URL (CLIENT_ID)
+- Know which port to run the web UI on (WEB_PORT)
 
 ## Installation
 
