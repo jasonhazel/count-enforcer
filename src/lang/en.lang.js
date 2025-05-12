@@ -23,8 +23,7 @@ const translations = {
     setsaves_error: 'There was an error setting the saves. Please try again later.',
     incorrect_count_warning: ({ expected, current }) => 
         `Warning: You said ${current}, but the next number should be ${expected}. No penalty since count is below 10.`,
-    incorrect_count_with_save: ({ expected, current }) => 
-        `Incorrect count! You said ${current}, but the next number should be ${expected}. Using one of your saves!`,
+    incorrect_count_with_save: 'Wrong number! Expected {expected}, but got {current}. Using a save to keep the count going!',
     incorrect_count_no_save: ({ expected, current }) => 
         `Incorrect count! You said ${current}, but the next number should be ${expected}. No saves left - count reset to 0!`,
     bananabread: "dude i got some fucking banana bread at work today dude? hell yeah. " +
@@ -93,7 +92,10 @@ const translations = {
     commands_footer: username => `Requested by ${username}`,
     
     // Console messages for administrators
-    console_invite_link: 'Add this bot to your server using the following link:'
+    console_invite_link: 'Add this bot to your server using the following link:',
+    cannot_count_twice: 'You cannot count twice in a row!',
+    error_updating_count: 'An error occurred while updating the count. Please try again later.',
+    incorrect_count_with_save: 'Wrong number! Expected {expected}, but got {current}. Using a save to keep the count going!'
 };
 
 module.exports = translations; 

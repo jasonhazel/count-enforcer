@@ -93,7 +93,10 @@ const translations = {
     commands_footer: username => `Solicitado por ${username}`,
     
     // Console messages for administrators
-    console_invite_link: 'Añade este bot a tu servidor usando el siguiente enlace:'
+    console_invite_link: 'Añade este bot a tu servidor usando el siguiente enlace:',
+    cannot_count_twice: '¡No puedes contar dos veces seguidas!',
+    error_updating_count: 'Ocurrió un error al actualizar el conteo. Por favor, inténtalo de nuevo más tarde.',
+    incorrect_count_with_save: '¡Número incorrecto! Se esperaba {expected}, pero dijiste {current}. ¡Usando un guardado para continuar!'
 };
 
 module.exports = translations; 

@@ -1,4 +1,5 @@
 const { PermissionsBitField, Events } = require('discord.js');
+const { getUserLanguage } = require('../utils/db_helpers');
 const { t } = require('../lang/i18n');
 
 module.exports = {

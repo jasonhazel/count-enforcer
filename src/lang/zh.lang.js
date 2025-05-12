@@ -93,7 +93,10 @@ const translations = {
     commands_footer: username => `由${username}请求`,
     
     // Console messages for administrators
-    console_invite_link: '使用以下链接将此机器人添加到您的服务器：'
+    console_invite_link: '使用以下链接将此机器人添加到您的服务器：',
+    cannot_count_twice: '你不能连续数两次！',
+    error_updating_count: '更新计数时发生错误。请稍后再试。',
+    incorrect_count_with_save: '数字错误！应该是 {expected}，但你输入了 {current}。使用一个保存点继续！'
 };
 
 module.exports = translations; 

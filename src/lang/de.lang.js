@@ -93,7 +93,10 @@ const translations = {
     commands_footer: username => `Angefordert von ${username}`,
     
     // Console messages for administrators
-    console_invite_link: 'Füge diesen Bot mit dem folgenden Link zu deinem Server hinzu:'
+    console_invite_link: 'Füge diesen Bot mit dem folgenden Link zu deinem Server hinzu:',
+    cannot_count_twice: 'Du kannst nicht zweimal hintereinander zählen!',
+    error_updating_count: 'Beim Aktualisieren der Zählung ist ein Fehler aufgetreten. Bitte versuche es später erneut.',
+    incorrect_count_with_save: 'Falsche Zahl! {expected} wurde erwartet, aber du hast {current} gesagt. Ein Speicherpunkt wird verwendet, um weiterzumachen!',
 };
 
 module.exports = translations; 

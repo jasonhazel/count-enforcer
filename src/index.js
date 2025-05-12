@@ -84,4 +84,11 @@ if (!token) {
 client.login(token).then(() => {
     // Start web server after successful login
     setupWebServer(client, db);
-}); 
+});
+
+// Export for testing
+module.exports = {
+    commands,
+    client,
+    db
+}; 

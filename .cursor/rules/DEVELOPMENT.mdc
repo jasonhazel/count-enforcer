@@ -25,6 +25,10 @@ This document outlines the core development rules and standards for the project.
 ## file structure guidelines
 - files are always snake_case
 - src
+    - __tests__
+      - __mocks__
+      - events
+      - commands
     - commands
         - [command].command.js
     - events
@@ -79,39 +83,18 @@ This document outlines the core development rules and standards for the project.
 - Use meaningful variable and function names
 - Maintain minimum test coverage of 80% for all new code
 
-## Database/Persistence Guidelines
-### Data Structure
-- Store server data with a unique server ID as the primary key
-- Maintain separate collections/tables for:
-- Server configurations (count, saves, settings)
-- User registrations (user IDs with counter role)
-- Count history (for analytics and rollbacks)
-### Database Operations
-- Implement atomic transactions for critical operations (e.g., incrementing count)
-- Use optimistic locking for concurrent counting operations
-- Cache frequently accessed data (current count, user roles)
-- Implement data validation before persistence
-### Backup Strategy
-- Schedule regular database backups
-- Store backup history for at least 7 days
-- Implement a recovery procedure for data corruption
-### Performance
-- Index frequently queried fields
-- Use connection pooling for database connections
-- Implement query optimization for high-traffic servers
-- Monitor query performance and optimize slow queries
-### Data Migration
-- Version database schemas
-- Document migration procedures for schema changes
-- Test migrations thoroughly before deployment
-- Provide rollback mechanisms for failed migrations
-### Security
-Encrypt sensitive data at rest
-- Use parameterized queries to prevent injection
-- Implement proper access controls to database
-- Regularly audit database access patterns
-
 ## Testing Requirements
+
+## Best Practices
+- any time a test file is created or changed, make sure the test suite for that file is run
+- if individual files test suite succeeds, run the coverage report
+  - use `npm run test:coverage`
+- anytime you try to run `jest` remember that we're using an npm script to run tests.
+- when running tests, fail fast.  stop test execution as soon as the first error is found.
+- when asked to write tests for multiple files
+    - focus on one file at a time.
+    - write tests, run tests, fix errors, repeat until success
+
 
 ### Coverage and Standards
 - Maintain minimum test coverage of 80% across the codebase
@@ -121,6 +104,7 @@ Encrypt sensitive data at rest
 - Mock external dependencies in unit tests
 - Run full test suite before committing changes
 - Document test coverage reports in pull requests
+- after successful test suite, run coverage report (using `npm run test:coverage`)
 
 ## Security Guidelines
 

@@ -8,7 +8,7 @@
     "dev": "nodemon src/index.js",
     "docker:start": "docker compose up --build",
     "docker:build-push": "docker build -t mrhazel/count-enforcer . && docker push mrhazel/count-enforcer",
-    "test": "jest",
+    "test": "jest --verbose --detectOpenHandles",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"
   },
@@ -22,7 +22,7 @@
     "ws": "^8.18.2"
   },
   "devDependencies": {
-    "@types/jest": "^29.5.12",
+    "@types/jest": "^29.5.14",
     "jest": "^29.7.0",
     "jest-environment-node": "^29.7.0",
     "nodemon": "^3.0.3"
