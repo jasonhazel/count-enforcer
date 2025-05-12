@@ -51,9 +51,14 @@ module.exports = {
                 WHERE guild_id = ?
             `).run(expectedCount, expectedCount, message.author.id, message.guild.id);
 
-            // Increment user's success count
-            db.prepare('UPDATE users SET success_count = success_count + 1 WHERE user_id = ?')
-                .run(message.author.id);
+            // Increment user's success count and streak
+            db.prepare(`
+                UPDATE users 
+                SET success_count = success_count + 1,
+                    current_streak = current_streak + 1,
+                    highest_streak = MAX(highest_streak, current_streak + 1)
+                WHERE user_id = ?
+            `).run(message.author.id);
 
             // Add checkmark reaction
             await message.react('✅');
@@ -71,9 +76,14 @@ module.exports = {
                     current: number
                 }));
                 
-                // Decrement saves and increment fail count
-                db.prepare('UPDATE users SET saves = saves - 1, fail_count = fail_count + 1 WHERE user_id = ?')
-                    .run(message.author.id);
+                // Decrement saves, increment fail count, and reset streak
+                db.prepare(`
+                    UPDATE users 
+                    SET saves = saves - 1, 
+                        fail_count = fail_count + 1,
+                        current_streak = 0
+                    WHERE user_id = ?
+                `).run(message.author.id);
             } else {
                 // No saves left
                 await message.reply(t('incorrect_count_no_save', user.language, {
@@ -88,9 +98,13 @@ module.exports = {
                     WHERE guild_id = ?
                 `).run(message.author.id, message.guild.id);
 
-                // Increment user's fail count
-                db.prepare('UPDATE users SET fail_count = fail_count + 1 WHERE user_id = ?')
-                    .run(message.author.id);
+                // Increment user's fail count and reset streak
+                db.prepare(`
+                    UPDATE users 
+                    SET fail_count = fail_count + 1,
+                        current_streak = 0
+                    WHERE user_id = ?
+                `).run(message.author.id);
             }
             
             // Add X reaction

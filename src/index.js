@@ -83,5 +83,5 @@ if (!token) {
 
 client.login(token).then(() => {
     // Start web server after successful login
-    setupWebServer(client);
+    setupWebServer(client, db);
 }); 

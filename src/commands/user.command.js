@@ -27,6 +27,8 @@ class UserCommand extends BaseCommand {
                 { name: 'Saves', value: user.saves.toString(), inline: true },
                 { name: 'Failed Counts', value: (user.fail_count || 0).toString(), inline: true },
                 { name: 'Successful Counts', value: (user.success_count || 0).toString(), inline: true },
+                { name: 'Current Streak', value: (user.current_streak || 0).toString(), inline: true },
+                { name: 'Highest Streak', value: (user.highest_streak || 0).toString(), inline: true },
                 // { name: 'Member Since', value: new Date(user.created_at).toLocaleDateString(), inline: true },
                 // { name: 'Last Seen', value: new Date(user.last_seen).toLocaleDateString(), inline: true }
             )

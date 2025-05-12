@@ -17,6 +17,37 @@
             background: linear-gradient(135deg, #69398e, #4a2a63);
             color: #ffffff;
         }
+        .stats-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            font-size: 0.9rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        .stat-value {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #ffffff;
+        }
+        .stat-label {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
         .container {
             display: flex;
             gap: 2rem;
@@ -27,7 +58,7 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             max-width: 1000px;
             width: 90%;
-            margin-bottom: 2rem;
+            margin-top: 4rem;
         }
         .main-content {
             flex: 1;
@@ -138,6 +169,24 @@
     </style>
 </head>
 <body>
+    <div class="stats-bar">
+        <div class="stat-item">
+            <div class="stat-value"><%= stats.serverCount %></div>
+            <div class="stat-label">Servers</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value"><%= stats.userCount %></div>
+            <div class="stat-label">Users</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value"><%= stats.highestCount %></div>
+            <div class="stat-label">Highest Count</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value"><%= stats.highestStreak %></div>
+            <div class="stat-label">Best Streak</div>
+        </div>
+    </div>
     <div class="container">
         <div class="main-content">
             <h1>Count Enforcer</h1>
