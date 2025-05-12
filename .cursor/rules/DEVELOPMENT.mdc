@@ -91,10 +91,14 @@ This document outlines the core development rules and standards for the project.
   - use `npm run test:coverage`
 - anytime you try to run `jest` remember that we're using an npm script to run tests.
 - when running tests, fail fast.  stop test execution as soon as the first error is found.
-- when asked to write tests for multiple files
-    - focus on one file at a time.
-    - write tests, run tests, fix errors, repeat until success
+- always use test workflow
 
+## Test Workflow
+- for each file to be tested
+  - until all tests for file passed
+    - write tests for file
+    - run tests for file
+    - fix errors in test
 
 ### Coverage and Standards
 - Maintain minimum test coverage of 80% across the codebase
