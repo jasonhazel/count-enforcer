@@ -37,7 +37,38 @@ function setupWebServer(client, db) {
                 highestStreak: await db.prepare('SELECT MAX(highest_streak) as streak FROM users').get().streak || 0
             };
 
-            res.render('index', { inviteUrl, stats });
+            // Get server statistics
+            const servers = await Promise.all(client.guilds.cache.map(async (guild) => {
+                const guildStats = await db.prepare(`
+                    SELECT 
+                        current_count,
+                        highest_count,
+                        saves
+                    FROM guild_settings 
+                    WHERE guild_id = ?
+                `).get(guild.id) || { current_count: 0, highest_count: 0, saves: 0 };
+
+                // Get active users count for this guild
+                const activeUsers = await db.prepare(`
+                    SELECT COUNT(*) as count 
+                    FROM users 
+                    WHERE active = 1 
+                    AND last_seen > datetime('now', '-7 days')
+                `).get().count;
+
+                return {
+                    name: guild.name,
+                    currentCount: guildStats.current_count,
+                    highestCount: guildStats.highest_count,
+                    activeUsers: activeUsers,
+                    saves: guildStats.saves
+                };
+            }));
+
+            // Sort servers by current count in descending order
+            servers.sort((a, b) => b.currentCount - a.currentCount);
+
+            res.render('index', { inviteUrl, stats, servers });
         } catch (error) {
             console.error('Error fetching stats:', error);
             // Provide default stats if there's an error
@@ -47,7 +78,7 @@ function setupWebServer(client, db) {
                 highestCount: 0,
                 highestStreak: 0
             };
-            res.render('index', { inviteUrl, stats });
+            res.render('index', { inviteUrl, stats, servers: [] });
         }
     });
 
