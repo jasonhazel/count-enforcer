@@ -116,7 +116,7 @@ module.exports = {
             }
         } else {
             // Handle incorrect count
-            if (guildSettings.saves > 0) {
+            if (guildSettings.saves >= 1) {
                 // Guild has saves
                 await message.reply(t('incorrect_count_with_save', user.language, {
                     expected: expectedCount,
@@ -127,7 +127,7 @@ module.exports = {
                 db.prepare(`
                     UPDATE guild_settings 
                     SET saves = CASE 
-                        WHEN saves > 0 THEN ROUND(saves - 1, 3)
+                        WHEN saves >= 1 THEN ROUND(saves - 1, 3)
                         ELSE 0 
                     END
                     WHERE guild_id = ?
@@ -136,7 +136,8 @@ module.exports = {
                 db.prepare(`
                     UPDATE users 
                     SET fail_count = fail_count + 1,
-                        current_streak = 0
+                        current_streak = 0,
+                        success_count = 0
                     WHERE user_id = ?
                 `).run(message.author.id);
             } else {
@@ -157,7 +158,8 @@ module.exports = {
                 db.prepare(`
                     UPDATE users 
                     SET fail_count = fail_count + 1,
-                        current_streak = 0
+                        current_streak = 0,
+                        success_count = 0
                     WHERE user_id = ?
                 `).run(message.author.id);
             }

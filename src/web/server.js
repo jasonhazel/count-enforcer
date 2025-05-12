@@ -60,7 +60,6 @@ function setupWebServer(client, db) {
                     name: guild.name,
                     currentCount: guildStats.current_count,
                     highestCount: guildStats.highest_count,
-                    activeUsers: activeUsers,
                     saves: guildStats.saves
                 };
             }));
