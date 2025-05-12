@@ -92,7 +92,19 @@ function setupWebServer(client, db) {
     });
 
     // Set up WebSocket server
-    const wss = new WebSocket.Server({ server });
+    const wss = new WebSocket.Server({ 
+        server,
+        // Trust the proxy
+        clientTracking: true,
+        // Handle proxy headers
+        verifyClient: (info, callback) => {
+            // Check both direct and proxied protocols
+            const isSecure = info.req.headers['x-forwarded-proto'] === 'https' || 
+                           info.req.headers['x-forwarded-proto'] === 'wss' ||
+                           info.req.secure;
+            callback(true); // Allow both secure and non-secure connections
+        }
+    });
 
     // Store connected clients
     const clients = new Set();

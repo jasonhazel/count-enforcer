@@ -341,7 +341,8 @@
         });
 
         // WebSocket connection
-        const ws = new WebSocket(`ws://${window.location.host}`);
+        const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+        const ws = new WebSocket(`${protocol}//${window.location.host}`);
 
         // Handle WebSocket messages
         ws.onmessage = (event) => {
