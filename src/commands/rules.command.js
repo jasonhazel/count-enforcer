@@ -1,5 +1,5 @@
-const { t } = require('../i18n');
 const BaseCommand = require('./base');
+const { t } = require('../i18n');
 const { EmbedBuilder } = require('discord.js');
 
 class RulesCommand extends BaseCommand {
@@ -7,10 +7,7 @@ class RulesCommand extends BaseCommand {
         super('rules', 'Shows the rules of the counting game');
     }
 
-    async execute(message, args, db) {
-        const user = await db.prepare('SELECT language FROM users WHERE user_id = ?').get(message.author.id);
-        const lang = user ? user.language : 'en';
-
+    async execute(message, args, db, lang) {
         const embed = new EmbedBuilder()
             .setColor('#69398e')
             .setTitle('🎲 Counting Game Rules')

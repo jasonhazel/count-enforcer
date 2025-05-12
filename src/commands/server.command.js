@@ -7,10 +7,7 @@ class ServerCommand extends BaseCommand {
         super('server', 'Shows server statistics');
     }
 
-    async execute(message, args, db) {
-        const user = await db.prepare('SELECT language FROM users WHERE user_id = ?').get(message.author.id);
-        const lang = user ? user.language : 'en';
-
+    async execute(message, args, db, lang) {
         const stats = await db.prepare('SELECT current_count, highest_count, failed_count, last_counter, last_failed_counter, saves FROM guild_settings WHERE guild_id = ?')
             .get(message.guild.id);
 

@@ -1,5 +1,6 @@
 const { Events } = require('discord.js');
 const { t } = require('../i18n');
+const { getUserLanguage } = require('../utils/dbHelpers');
 
 const HIDDEN_MILESTONES = {
     42: '🎉 The answer to life, the universe, and everything!',
@@ -27,10 +28,13 @@ module.exports = {
             return;
         }
 
+        // Get user language once at the start
+        const lang = getUserLanguage(db, message.author.id);
+
         // Check if user has counter role
         const counterRole = message.guild.roles.cache.find(role => role.name.toLowerCase() === 'counter');
         if (!counterRole || !message.member.roles.cache.has(counterRole.id)) {
-            await message.reply('You need the Counter role to participate in counting! Type !register to get the role.');
+            await message.reply(t('need_counter_role', lang));
             return;
         }
 
@@ -40,8 +44,8 @@ module.exports = {
             // Register new user
             db.prepare(`
                 INSERT INTO users (user_id, username, language, active, success_count, fail_count, current_streak, highest_streak)
-                VALUES (?, ?, 'en', 1, 0, 0, 0, 0)
-            `).run(message.author.id, message.author.username);
+                VALUES (?, ?, ?, 1, 0, 0, 0, 0)
+            `).run(message.author.id, message.author.username, lang);
             user = db.prepare('SELECT * FROM users WHERE user_id = ?').get(message.author.id);
         }
 
@@ -62,7 +66,7 @@ module.exports = {
         // Check if user is trying to count twice in a row (unless they're the server owner)
         const isDoubleCount = guildSettings.last_counter === message.author.id;
         if (isDoubleCount && message.author.id !== message.guild.ownerId) {
-            await message.reply(t('cannot_count_twice', user.language));
+            await message.reply(t('cannot_count_twice', lang));
             await message.react('❌');
             return;
         }
@@ -133,7 +137,7 @@ module.exports = {
             // Handle incorrect count
             if (guildSettings.saves >= 1) {
                 // Guild has saves
-                await message.reply(t('incorrect_count_with_save', user.language, {
+                await message.reply(t('incorrect_count_with_save', lang, {
                     expected: expectedCount,
                     current: number
                 }));
@@ -157,7 +161,7 @@ module.exports = {
                 `).run(message.author.id);
             } else {
                 // No saves left
-                await message.reply(t('incorrect_count_no_save', user.language, {
+                await message.reply(t('incorrect_count_no_save', lang, {
                     expected: expectedCount,
                     current: number
                 }));

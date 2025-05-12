@@ -1,4 +1,5 @@
 const { Events } = require('discord.js');
+const { getGuildSettings, createGuildSettings } = require('../utils/dbHelpers');
 
 module.exports = {
     name: Events.ClientReady,
@@ -13,15 +14,12 @@ module.exports = {
                 console.log(`Checking settings for guild: ${guild.name} (${guild.id})`);
                 
                 // Check if guild settings exist
-                const settings = db.prepare('SELECT * FROM guild_settings WHERE guild_id = ?').get(guild.id);
+                const settings = getGuildSettings(db, guild.id);
                 
                 if (!settings) {
                     console.log(`No settings found for guild ${guild.name}, creating default settings...`);
                     // Create default settings for the guild
-                    db.prepare(`
-                        INSERT INTO guild_settings (guild_id, prefix, current_count, highest_count, failed_count, saves)
-                        VALUES (?, '!', 0, 0, 0, 1.000)
-                    `).run(guild.id);
+                    createGuildSettings(db, guild.id);
                     console.log(`Successfully created settings for guild: ${guild.name}`);
                 } else {
                     console.log(`Found existing settings for guild ${guild.name}:`, {

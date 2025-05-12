@@ -2,17 +2,14 @@ const fs = require('fs');
 const path = require('path');
 const { t } = require('../i18n');
 const { EmbedBuilder } = require('discord.js');
+const BaseCommand = require('./base');
 
-class CommandsCommand {
+class CommandsCommand extends BaseCommand {
     constructor() {
-        this.name = 'commands';
-        this.description = 'Lists all available commands';
+        super('commands', 'Lists all available commands');
     }
 
-    async execute(message, args, db) {
-        const user = await db.prepare('SELECT language FROM users WHERE user_id = ?').get(message.author.id);
-        const lang = user ? user.language : 'en';
-
+    async execute(message, args, db, lang) {
         // Read all command files from the commands directory
         const commandsDir = path.join(__dirname);
         const commandFiles = fs.readdirSync(commandsDir)

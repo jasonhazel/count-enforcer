@@ -1,4 +1,6 @@
 const { Events } = require('discord.js');
+const { getGuildSettings } = require('../utils/dbHelpers');
+const { getUserLanguage } = require('../utils/dbHelpers');
 
 module.exports = {
     name: Events.MessageCreate,
@@ -6,16 +8,16 @@ module.exports = {
         if (message.author.bot) return;
 
         // Get guild prefix from database or use default
-        const guildPrefix = db.prepare('SELECT prefix FROM guild_settings WHERE guild_id = ?').get(message.guild.id)?.prefix || '!';
+        const guildSettings = getGuildSettings(db, message.guild.id);
+        const guildPrefix = guildSettings?.prefix || '!';
 
         if (!message.content.startsWith(guildPrefix)) return;
 
         const args = message.content.slice(guildPrefix.length).trim().split(/ +/);
         const commandName = args.shift().toLowerCase();
         
-        // Get user language or default to 'en'
-        const userRow = db.prepare('SELECT * FROM users WHERE user_id = ?').get(message.author.id);
-        const lang = userRow?.language || 'en';
+        // Get user language
+        const lang = getUserLanguage(db, message.author.id);
 
         // Execute command
         const command = commands.get(commandName);

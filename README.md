@@ -2,6 +2,8 @@
 
 A Discord bot with a web interface for easy server management. Built mostly by [Cursor AI](https://cursor.sh) because who has time to write code manually anymore?
 
+> **Note:** This bot is heavily influenced by existing counting bot implementations. Since this was primarily written by AI (robots), there are no copyright claims - feel free to use, modify, and distribute as you please!
+
 ## Features
 
 - Discord bot with counting functionality

@@ -7,7 +7,7 @@ class SavesCommand extends BaseCommand {
         super('saves', 'Shows information about how saves work');
     }
 
-    async execute(message, args, db) {
+    async execute(message, args, db, lang) {
         const guildSettings = db.prepare('SELECT saves FROM guild_settings WHERE guild_id = ?')
             .get(message.guild.id);
 
