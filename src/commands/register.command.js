@@ -1,5 +1,5 @@
 const BaseCommand = require('./base');
-const { t } = require('../i18n');
+const { t } = require('../lang/i18n');
 const { updateUserLastSeen, createNewUser } = require('../utils/db_helpers');
 const { manageCounterRole } = require('../utils/role_manager');
 

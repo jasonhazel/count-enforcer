@@ -1,5 +1,5 @@
 const BaseCommand = require('./base');
-const { t } = require('../i18n');
+const { t } = require('../lang/i18n');
 const { EmbedBuilder } = require('discord.js');
 
 class RulesCommand extends BaseCommand {

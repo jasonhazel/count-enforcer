@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { t } = require('../i18n');
+const { t } = require('../lang/i18n');
 const { EmbedBuilder } = require('discord.js');
 const BaseCommand = require('./base');
 

@@ -1,4 +1,4 @@
-const { t } = require('../i18n');
+const { t } = require('../lang/i18n');
 
 async function manageCounterRole(member, action, db, lang) {
     const counterRole = member.guild.roles.cache.find(role => role.name.toLowerCase() === 'counter');

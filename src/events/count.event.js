@@ -1,5 +1,5 @@
 const { Events } = require('discord.js');
-const { t } = require('../i18n');
+const { t } = require('../lang/i18n');
 const { getUserLanguage } = require('../utils/db_helpers');
 
 const HIDDEN_MILESTONES = {

@@ -1,4 +1,4 @@
-const { t } = require('../i18n');
+const { t } = require('../lang/i18n');
 const BaseCommand = require('./base');
 const { EmbedBuilder } = require('discord.js');
 
@@ -41,12 +41,12 @@ class ServerCommand extends BaseCommand {
             .setTitle('Server Statistics')
             .setDescription(`Statistics for ${message.guild.name}`)
             .addFields(
-                { name: 'Current Count', value: stats.current_count.toString(), inline: true },
-                { name: 'Highest Count', value: stats.highest_count.toString(), inline: true },
-                { name: 'Failed Count', value: stats.failed_count.toString(), inline: true },
+                { name: 'Current', value: stats.current_count.toString(), inline: true },
+                { name: 'Highest', value: stats.highest_count.toString(), inline: true },
+                { name: 'Failed', value: stats.failed_count.toString(), inline: true },
                 { name: 'Saves', value: (stats.saves || 0).toString(), inline: true },
-                { name: 'Last Counter', value: lastCounterName, inline: true },
-                { name: 'Last Failed Counter', value: `${lastFailedCounterName} (${lastFailedCounterFails} fails)`, inline: true }
+                { name: 'Last', value: lastCounterName, inline: true },
+                { name: 'Last Failed', value: `${lastFailedCounterName} (${lastFailedCounterFails} fails)`, inline: true }
             )
             .setTimestamp()
             .setFooter({ text: `Requested by ${message.author.tag}` });

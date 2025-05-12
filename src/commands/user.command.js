@@ -1,4 +1,4 @@
-const { t } = require('../i18n');
+const { t } = require('../lang/i18n');
 const BaseCommand = require('./base');
 const { EmbedBuilder } = require('discord.js');
 

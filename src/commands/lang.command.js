@@ -1,5 +1,5 @@
 const BaseCommand = require('./base');
-const { t, supportedLanguages } = require('../i18n');
+const { t, supportedLanguages } = require('../lang/i18n');
 
 class LangCommand extends BaseCommand {
     constructor() {
