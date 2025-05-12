@@ -339,6 +339,46 @@
                 modal.style.display = 'none';
             }
         });
+
+        // WebSocket connection
+        const ws = new WebSocket(`ws://${window.location.host}`);
+
+        // Handle WebSocket messages
+        ws.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            
+            // Update stats in the stats bar
+            document.querySelector('#servers-stat .stat-value').textContent = data.stats.serverCount;
+            document.querySelector('.stat-item:nth-child(2) .stat-value').textContent = data.stats.userCount;
+            document.querySelector('.stat-item:nth-child(3) .stat-value').textContent = data.stats.highestCount;
+            document.querySelector('.stat-item:nth-child(4) .stat-value').textContent = data.stats.highestStreak;
+
+            // Update server table if modal is open
+            if (modal.style.display === 'flex') {
+                const tbody = document.querySelector('.servers-table tbody');
+                tbody.innerHTML = data.servers.map(server => `
+                    <tr>
+                        <td>${server.name}</td>
+                        <td>${server.currentCount}</td>
+                        <td>${server.highestCount}</td>
+                        <td>${server.saves}</td>
+                    </tr>
+                `).join('');
+            }
+        };
+
+        // Handle WebSocket connection errors
+        ws.onerror = (error) => {
+            console.error('WebSocket error:', error);
+        };
+
+        // Handle WebSocket reconnection
+        ws.onclose = () => {
+            console.log('WebSocket connection closed. Attempting to reconnect...');
+            setTimeout(() => {
+                window.location.reload();
+            }, 5000);
+        };
     </script>
 </body>
 </html> 

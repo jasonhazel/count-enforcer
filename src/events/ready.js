@@ -19,8 +19,8 @@ module.exports = {
                     console.log(`No settings found for guild ${guild.name}, creating default settings...`);
                     // Create default settings for the guild
                     db.prepare(`
-                        INSERT INTO guild_settings (guild_id, prefix, current_count, highest_count, failed_count)
-                        VALUES (?, '!', 0, 0, 0)
+                        INSERT INTO guild_settings (guild_id, prefix, current_count, highest_count, failed_count, saves)
+                        VALUES (?, '!', 0, 0, 0, 1.000)
                     `).run(guild.id);
                     console.log(`Successfully created settings for guild: ${guild.name}`);
                 } else {
