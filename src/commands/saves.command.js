@@ -30,12 +30,7 @@ class SavesCommand extends BaseCommand {
                 },
                 {
                     name: '🏆 Milestone Bonuses',
-                    value: '• +0.5 saves at every 100 counts\n• +1.0 saves at every 500 counts\n• +2.0 saves at every 1000 counts',
-                    inline: false
-                },
-                {
-                    name: '💡 Example Calculations',
-                    value: '• Count 100 with no streak: 1.001 saves\n• Count 500 with 200 streak: 2.0015 saves\n• Count 1000 with 600 streak: 3.002 saves',
+                    value: '• +2.0 saves at every 1000\n• +1.0 saves at every 500\n• +0.5 saves at every 100',
                     inline: false
                 },
                 {
