@@ -11,7 +11,7 @@ class ServerCommand extends BaseCommand {
         const user = await db.prepare('SELECT language FROM users WHERE user_id = ?').get(message.author.id);
         const lang = user ? user.language : 'en';
 
-        const stats = await db.prepare('SELECT current_count, highest_count, failed_count, last_counter, last_failed_counter FROM guild_settings WHERE guild_id = ?')
+        const stats = await db.prepare('SELECT current_count, highest_count, failed_count, last_counter, last_failed_counter, saves FROM guild_settings WHERE guild_id = ?')
             .get(message.guild.id);
 
         if (!stats) {
@@ -47,6 +47,7 @@ class ServerCommand extends BaseCommand {
                 { name: 'Current Count', value: stats.current_count.toString(), inline: true },
                 { name: 'Highest Count', value: stats.highest_count.toString(), inline: true },
                 { name: 'Failed Count', value: stats.failed_count.toString(), inline: true },
+                { name: 'Saves', value: (stats.saves || 0).toString(), inline: true },
                 { name: 'Last Counter', value: lastCounterName, inline: true },
                 { name: 'Last Failed Counter', value: `${lastFailedCounterName} (${lastFailedCounterFails} fails)`, inline: true }
             )
