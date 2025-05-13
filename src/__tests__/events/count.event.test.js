@@ -2,6 +2,7 @@ const { Events } = require('discord.js');
 const countEvent = require('../../events/count.event');
 const { t } = require('../../lang/i18n');
 const { getUserLanguage } = require('../../utils/db_helpers');
+const { HIDDEN_MILESTONES } = require('../../constants/hidden_milestones');
 
 // Mock dependencies
 jest.mock('../../lang/i18n');
@@ -227,12 +228,22 @@ describe('Count Event Handler', () => {
     });
 
     test('should handle all hidden milestones', async () => {
-        const hiddenMilestones = [42, 69, 256, 420, 512, 640, 666, 1024];
-        
-        for (const milestone of hiddenMilestones) {
+        const milestonePoints = {
+            42: 0.1,   // 1st position
+            69: 0.2,   // 2nd position
+            256: 0.3,  // 3rd position
+            420: 0.4,  // 4th position
+            512: 0.5,  // 5th position
+            640: 0.6,  // 6th position
+            666: 0.7,  // 7th position
+            1024: 0.8  // 8th position
+        };
+
+        for (const milestone of Object.keys(HIDDEN_MILESTONES).map(Number)) {
+            // Reset mocks for each iteration
             jest.clearAllMocks();
-            message.content = milestone.toString();
             
+            message.content = milestone.toString();
             mockGet.mockReturnValueOnce({ prefix: '!' }); // prefix check
             mockGet.mockReturnValueOnce({ 
                 user_id: '123456789',
@@ -257,7 +268,7 @@ describe('Count Event Handler', () => {
                 milestone, // current_count
                 milestone, // highest_count
                 message.author.id, // last_counter
-                1.001, // saves (base rate + hidden milestone bonus)
+                milestonePoints[milestone] + 0.001, // base rate (0.001) + milestone bonus
                 message.guild.id // guild_id
             );
         }
@@ -268,7 +279,7 @@ describe('Count Event Handler', () => {
         mockGet.mockReturnValueOnce({ prefix: '!' }); // prefix check
         mockGet.mockReturnValueOnce({ 
             user_id: '123456789',
-            current_streak: 501 // 2.0x multiplier
+            current_streak: 501 // no longer affects multiplier
         }); // user check
         mockGet.mockReturnValueOnce({ 
             current_count: 999,
@@ -286,7 +297,7 @@ describe('Count Event Handler', () => {
             1000, // current_count
             1000, // highest_count
             message.author.id, // last_counter
-            2.002, // saves (base rate * streak multiplier + milestone bonus)
+            2.001, // saves (base rate + milestone bonus)
             message.guild.id // guild_id
         );
     });
@@ -386,31 +397,13 @@ describe('Count Event Handler', () => {
         mockGet.mockReturnValueOnce({ prefix: '!' }); // prefix check
         mockGet.mockReturnValueOnce({ 
             user_id: '123456789',
-            current_streak: 101
+            current_streak: 101 // no longer affects multiplier
         }); // user check
         mockGet.mockReturnValueOnce({ 
             current_count: 0,
             last_counter: null,
             saves: 1
         }); // guild settings
-
-        // Mock the database prepare function for each specific query
-        mockDb.prepare.mockImplementation((query) => {
-            if (query.includes('UPDATE guild_settings')) {
-                return {
-                    run: (...args) => mockRun(...args)
-                };
-            }
-            if (query.includes('UPDATE users')) {
-                return {
-                    run: (...args) => mockRun(...args)
-                };
-            }
-            return {
-                get: (...args) => mockGet(...args),
-                run: (...args) => mockRun(...args)
-            };
-        });
 
         await countEvent.execute(message, mockDb);
 
@@ -426,7 +419,7 @@ describe('Count Event Handler', () => {
         expect(highestCount).toBe(1);
         expect(userId).toBe('123456789');
         // Compare with 3 decimal places to match database precision
-        expect(Number(saves.toFixed(3))).toBe(0.002);
+        expect(Number(saves.toFixed(3))).toBe(0.001); // just base rate now
         expect(guildId).toBe(message.guild.id);
     });
 
@@ -434,7 +427,7 @@ describe('Count Event Handler', () => {
         mockGet.mockReturnValueOnce({ prefix: '!' }); // prefix check
         mockGet.mockReturnValueOnce({ 
             user_id: '123456789',
-            current_streak: 501
+            current_streak: 501 // no longer affects multiplier
         }); // user check
         mockGet.mockReturnValueOnce({ 
             current_count: 0,
@@ -448,8 +441,7 @@ describe('Count Event Handler', () => {
             call[0].includes('UPDATE guild_settings')
         );
         expect(updateCall[0]).toContain('saves = ROUND(saves + ?, 3)');
-        // Base save rate 0.001 * 2.0 multiplier = 0.002
-        expect(mockRun).toHaveBeenCalledWith(1, 1, '123456789', 0.002, message.guild.id);
+        expect(mockRun).toHaveBeenCalledWith(1, 1, '123456789', 0.001, message.guild.id);
     });
 
     test('should handle regular milestone at 100', async () => {

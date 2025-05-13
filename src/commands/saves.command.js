@@ -1,6 +1,7 @@
 const { t } = require('../lang/i18n');
 const BaseCommand = require('./base');
 const { EmbedBuilder } = require('discord.js');
+const { HIDDEN_MILESTONES } = require('../constants/hidden_milestones');
 
 class SavesCommand extends BaseCommand {
     constructor() {
@@ -16,31 +17,31 @@ class SavesCommand extends BaseCommand {
 
             const embed = new EmbedBuilder()
                 .setColor('#69398e')
-                .setTitle('💾 Save System Rules')
-                .setDescription('Here\'s how saves work in this server:')
+                .setTitle(t('saves_title', lang))
+                .setDescription(t('saves_description', lang))
                 .addFields(
                     {
-                        name: '📊 Base Save Rate',
-                        value: '• Every correct count adds 0.001 saves (0.1%)',
+                        name: t('saves_base_rate_title', lang),
+                        value: t('saves_base_rate_content', lang),
                         inline: false
                     },
                     {
-                        name: '🔥 Streak Multipliers',
-                        value: '• 1.0x multiplier for streaks 0-100\n• 1.5x multiplier for streaks 101-500\n• 2.0x multiplier for streaks 501+',
+                        name: t('saves_regular_milestones_title', lang),
+                        value: t('saves_regular_milestones_content', lang),
                         inline: false
                     },
                     {
-                        name: '🏆 Milestone Bonuses',
-                        value: '• +2.0 saves at every 1000\n• +1.0 saves at every 500\n• +0.5 saves at every 100',
+                        name: t('saves_hidden_milestones_title', lang),
+                        value: t('saves_hidden_milestones_content', lang),
                         inline: false
                     },
                     {
-                        name: '🛡️ Using Saves',
-                        value: '• When someone makes a mistake, one save is used to prevent the count from resetting\n• Saves are shared across the entire server\n• Current saves: ' + currentSaves.toFixed(3),
+                        name: t('saves_usage_title', lang),
+                        value: t('saves_usage_content', lang, { currentSaves: currentSaves.toFixed(3) }),
                         inline: false
                     }
                 )
-                .setFooter({ text: 'Saves are rounded to 3 decimal places' })
+                .setFooter({ text: t('saves_footer', lang) })
                 .setTimestamp();
 
             await message.reply({ embeds: [embed] });

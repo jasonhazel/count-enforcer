@@ -85,14 +85,6 @@ module.exports = {
                     // Calculate base save rate
                     const baseSaveRate = 0.001; // 0.1% per count
 
-                    // Calculate streak multiplier
-                    let streakMultiplier = 1.0;
-                    if (user.current_streak > 500) {
-                        streakMultiplier = 2.0;
-                    } else if (user.current_streak > 100) {
-                        streakMultiplier = 1.5;
-                    }
-
                     // Calculate milestone bonus
                     let milestoneBonus = 0;
                     if (expectedCount % 1000 === 0) {
@@ -109,8 +101,7 @@ module.exports = {
                     const hiddenMessage = hiddenMilestone ? hiddenMilestone.message : null;
 
                     // Calculate total saves to add and round to 3 decimal places
-                    const baseWithMultiplier = baseSaveRate * streakMultiplier;
-                    const savesToAdd = Number((baseWithMultiplier + milestoneBonus + hiddenBonus).toFixed(3));
+                    const savesToAdd = Number((baseSaveRate + milestoneBonus + hiddenBonus).toFixed(3));
 
                     // Update guild settings with new count and saves
                     db.prepare(`

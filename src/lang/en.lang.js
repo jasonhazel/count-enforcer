@@ -95,7 +95,20 @@ const translations = {
     console_invite_link: 'Add this bot to your server using the following link:',
     cannot_count_twice: 'You cannot count twice in a row!',
     error_updating_count: 'An error occurred while updating the count. Please try again later.',
-    incorrect_count_with_save: 'Wrong number! Expected {expected}, but got {current}. Using a save to keep the count going!'
+    incorrect_count_with_save: 'Wrong number! Expected {expected}, but got {current}. Using a save to keep the count going!',
+    
+    // Saves command translations
+    saves_title: '💾 Save System Rules',
+    saves_description: 'Here\'s how saves work in this server:',
+    saves_base_rate_title: '📊 Base Save Rate',
+    saves_base_rate_content: '• Every correct count adds 0.001 saves (0.1%)',
+    saves_regular_milestones_title: '🏆 Regular Milestone Bonuses',
+    saves_regular_milestones_content: '• +2.0 saves at every 1000\n• +1.0 saves at every 500\n• +0.5 saves at every 100',
+    saves_hidden_milestones_title: '✨ Hidden Milestone Bonuses',
+    saves_hidden_milestones_content: '• Special bonuses at various hidden milestones',
+    saves_usage_title: '🛡️ Using Saves',
+    saves_usage_content: ({ currentSaves }) => `• When someone makes a mistake, one save is used to prevent the count from resetting\n• Saves are shared across the entire server\n• Current saves: ${currentSaves}`,
+    saves_footer: 'Saves are rounded to 3 decimal places',
 };
 
 module.exports = translations; 

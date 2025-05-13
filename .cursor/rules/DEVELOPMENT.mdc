@@ -96,6 +96,7 @@ This document outlines the core development rules and standards for the project.
 - always use test workflow
 - try to minimize the number of test suites run at a time
 - avoid getting stalled when waiting for test output (you've been doing this lately)
+    - this might be connected to re-using terminals.  if it takes too long (more than 10 seconds) for a response, close the terminal and try again.
 
 
 ## Test Workflow
