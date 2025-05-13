@@ -1,17 +1,7 @@
 const { Events } = require('discord.js');
 const { t } = require('../lang/i18n');
 const { getUserLanguage } = require('../utils/db_helpers');
-
-const HIDDEN_MILESTONES = {
-    42: '🎉 The answer to life, the universe, and everything!',
-    69: '😏 Nice...',
-    256: '💻 A perfect byte!',
-    420: '🌿 Blaze it!',
-    512: '🎮 Half a kilobyte of pure gaming!',
-    640: '💻 "640K ought to be enough for anybody" - Bill Gates',
-    666: '😈 The number of the beast!',
-    1024: '💾 A full kilobyte!'
-};
+const { HIDDEN_MILESTONES } = require('../constants/hidden_milestones');
 
 module.exports = {
     name: Events.MessageCreate,
