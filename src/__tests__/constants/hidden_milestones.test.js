@@ -10,16 +10,19 @@ describe('HIDDEN_MILESTONES', () => {
         expect(Object.keys(HIDDEN_MILESTONES).map(Number)).toEqual(expectedMilestones);
     });
 
-    test('each milestone should have a message string', () => {
-        Object.values(HIDDEN_MILESTONES).forEach(message => {
-            expect(typeof message).toBe('string');
-            expect(message.length).toBeGreaterThan(0);
+    test('each milestone should have required properties', () => {
+        Object.entries(HIDDEN_MILESTONES).forEach(([milestone, data], index) => {
+            expect(data).toHaveProperty('message');
+            expect(data).toHaveProperty('points');
+            expect(typeof data.message).toBe('string');
+            expect(typeof data.points).toBe('number');
+            expect(data.points).toBe((index + 1) / 10); // Position in list divided by 10
         });
     });
 
     test('should have expected emojis in messages', () => {
-        Object.values(HIDDEN_MILESTONES).forEach(message => {
-            expect(message).toMatch(/[\u{1F300}-\u{1F9FF}]/u);
+        Object.values(HIDDEN_MILESTONES).forEach(data => {
+            expect(data.message).toMatch(/[\u{1F300}-\u{1F9FF}]/u);
         });
     });
 }); 

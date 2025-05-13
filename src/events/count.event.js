@@ -104,8 +104,9 @@ module.exports = {
                     }
 
                     // Calculate hidden milestone bonus
-                    const hiddenBonus = HIDDEN_MILESTONES[expectedCount] ? 1 : 0;
-                    const hiddenMessage = HIDDEN_MILESTONES[expectedCount];
+                    const hiddenMilestone = HIDDEN_MILESTONES[expectedCount];
+                    const hiddenBonus = hiddenMilestone ? hiddenMilestone.points : 0;
+                    const hiddenMessage = hiddenMilestone ? hiddenMilestone.message : null;
 
                     // Calculate total saves to add and round to 3 decimal places
                     const baseWithMultiplier = baseSaveRate * streakMultiplier;
