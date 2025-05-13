@@ -18,6 +18,8 @@ We are building a discord bot to track counting.
 - all owner-only commands are hidden from the !commands list
 - easter egg commands are hidden from the !commands list
 
+
+
 # Development Guidelines
 
 This document outlines the core development rules and standards for the project.
@@ -152,3 +154,8 @@ This document outlines the core development rules and standards for the project.
 - Keep functions pure when possible
 - Use TypeScript for type safety where applicable
 - Document complex functions with JSDoc comments 
+
+
+# DON'T FORGET!
+- always use the testing best practices
+- always use the file structure

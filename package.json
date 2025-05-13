@@ -10,7 +10,8 @@
     "docker:build-push": "docker build -t mrhazel/count-enforcer . && docker push mrhazel/count-enforcer",
     "test": "jest --verbose --detectOpenHandles",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "deploy": "git checkout main && git merge \"$1\" && git push origin main && npm run docker:build-push"
   },
   "dependencies": {
     "better-sqlite3": "^9.4.1",
